@@ -31,6 +31,46 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView0" />
+
+    <ImageView
+        android:id="@+id/star0"
+        android:layout_width="116dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="105dp"
+        android:layout_marginEnd="67dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cross0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/btn_star_big_on" />
+
+    <ImageView
+        android:id="@+id/cross0"
+        android:layout_width="108dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="105dp"
+        android:layout_marginEnd="44dp"
+        app:layout_constraintEnd_toStartOf="@+id/star0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_delete" />
+
+    <ImageView
+        android:id="@+id/dice"
+        android:layout_width="138dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="97dp"
+        android:layout_marginEnd="257dp"
+        android:layout_marginBottom="117dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView0"
+        app:layout_constraintVertical_bias="0.0"
+        tools:srcCompat="@drawable/dice_1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
