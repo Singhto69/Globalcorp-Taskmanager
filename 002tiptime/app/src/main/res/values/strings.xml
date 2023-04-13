@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">002-tiptime</string>
+    <string name="service_question">How was the service?</string>
+    <string name="radiob0q0">20%</string>
+    <string name="radiob1q0">18%</string>
+    <string name="radiob2q0">15%</string>
+    <string name="calculatebutton">Calculate</string>
+    <string name="roundup_switch">Use roundup?</string>
+    <string name="tipresult">tip result: </string>
+    <string name="tip_amount">Tip Amount: %s</string>
+</resources>
