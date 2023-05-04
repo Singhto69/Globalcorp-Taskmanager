@@ -61,4 +61,17 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
     implementation 'com.google.android.material:material:1.7.0'
+
+    /* Moshi library with Retrofit to parse the JSON response from the
+     web service into useful Kotlin objects which represent Mars photos.
+     */
+    // Retrofit with Moshi Converter
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
+    // Moshi
+    implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
+
+    // Coil for url img download and display
+    implementation "io.coil-kt:coil:1.1.1"
+
 }
