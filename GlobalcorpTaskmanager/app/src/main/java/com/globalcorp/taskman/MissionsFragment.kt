@@ -1,32 +1,41 @@
 package com.globalcorp.taskman
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.globalcorp.taskman.database.missiondb
+import com.globalcorp.taskman.databinding.FragmentMissionsBinding
+import kotlinx.coroutines.NonDisposableHandle.parent
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MissionsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MissionsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentMissionsBinding? = null
+    private val binding get() = _binding!!
+    private var thisContext: Context? = null
+
+    private lateinit var adapter: MissionAdapter
+    private lateinit var recyclerView: RecyclerView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        //val context = getActivity()
+        //val myDataSet = missiondb().loadlist()
+        //val recyclerView = binding.recyclerView1
+        //recyclerView.adapter =  MissionAdapter(context.context,myDataSet)
+        //recyclerView.setHasFixedSize(true)
+
+
+        //val myDataSet = missiondb().loadlist()
+        //binding.recyclerView1.adapter = MissionAdapter(view.context, myDataSet)
+        //binding.recyclerView1.setHasFixedSize(true)
+
+
     }
 
     override fun onCreateView(
@@ -34,7 +43,27 @@ class MissionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        _binding = FragmentMissionsBinding.inflate(inflater, container, false)
+
+
+
+
         return inflater.inflate(R.layout.fragment_missions, container, false)
+        //return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?)  {
+        super.onViewCreated(view, savedInstanceState)
+        val myDataSet = missiondb().loadlist()
+
+        val layoutManager = LinearLayoutManager(context)
+        recyclerView = binding.recyclerView1
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setHasFixedSize(true)
+        adapter = context?.let { MissionAdapter(it, myDataSet) }!!
+        recyclerView.adapter = adapter
+
+
     }
 
     companion object {
@@ -51,8 +80,7 @@ class MissionsFragment : Fragment() {
         fun newInstance(param1: String, param2: String) =
             MissionsFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
                 }
             }
     }

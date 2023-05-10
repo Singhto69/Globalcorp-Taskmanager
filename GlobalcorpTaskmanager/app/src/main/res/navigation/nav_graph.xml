@@ -22,5 +22,17 @@
         <action
             android:id="@+id/action_startFragment_to_missionsFragment"
             app:destination="@id/missionsFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_kittensFragment"
+            app:destination="@id/kittensFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/kittensFragment"
+        android:name="com.globalcorp.taskman.KittensFragment"
+        android:label="fragment_kittens"
+        tools:layout="@layout/fragment_kittens" >
+        <action
+            android:id="@+id/action_kittensFragment_to_startFragment"
+            app:destination="@id/startFragment" />
     </fragment>
 </navigation>

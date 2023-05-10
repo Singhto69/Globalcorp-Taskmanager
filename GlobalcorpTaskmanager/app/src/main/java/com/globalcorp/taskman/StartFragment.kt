@@ -27,8 +27,11 @@ class StartFragment : Fragment() {
 
 
         binding.startToMissionButton.setOnClickListener {
-            navStartToMissions()
-            // android:onClick="@{() -> StartFragment.navStartToMissions()}" NOT WORKING
+            findNavController().navigate(R.id.action_startFragment_to_missionsFragment)
+        }
+
+        binding.startToKittensFragmentButton.setOnClickListener{
+            findNavController().navigate(R.id.action_startFragment_to_kittensFragment)
         }
 
 
@@ -40,9 +43,9 @@ class StartFragment : Fragment() {
         _binding = null
     }
 
-    private fun navStartToMissions() {
+    /*private fun navStartToMissions() {
         findNavController().navigate(R.id.action_startFragment_to_missionsFragment)
         //  android:onClick="@{() -> StartFragment.navStartToMissions()}"
         //  FOR WHAT THIS NOT WORKING BLYAT
-    }
+    }*/
 }
