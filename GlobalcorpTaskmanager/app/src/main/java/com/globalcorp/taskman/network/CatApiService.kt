@@ -1,10 +1,14 @@
 package com.globalcorp.taskman.network
 
+import androidx.lifecycle.AndroidViewModel
+import coil.ImageLoader
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.currentCoroutineContext
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import kotlin.coroutines.coroutineContext
 
 
 private const val BASE_URL =
@@ -17,7 +21,7 @@ private const val api_key = "9b686b6c-0496-4238-92c3-b787d3189983"
 private const val limit = "2"
 private const val breed = "Sphinx"
 
-class CatApiService {
+class CatApiService  {
     /* The call to create() function on a Retrofit object
      is expensive and the app needs only one instance of Retrofit API service.
      So, you expose the service to the rest of the app using object declaration.
