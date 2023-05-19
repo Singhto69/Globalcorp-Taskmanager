@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.globalcorp.taskman.databinding.FragmentKittensBinding
 import com.globalcorp.taskman.databinding.FragmentStartBinding
+import com.globalcorp.taskman.network.CatObject
 import com.globalcorp.taskman.utils.ImageLoader
 
 class KittensFragment : Fragment() {
@@ -18,7 +19,7 @@ class KittensFragment : Fragment() {
     private var _binding: FragmentKittensBinding? = null
     private val binding get() = _binding!!
 
-    private var imageLoader : ImageLoader? = null
+    private var imageLoader: ImageLoader? = null
 
 
 
@@ -33,8 +34,17 @@ class KittensFragment : Fragment() {
 
          */
 
-        imageLoader = view?.let { ImageLoader(it.context) }
-        viewModel.imageLoader = imageLoader
+        binding.xmlViewModel = viewModel
+
+        //imageLoader = view?.let { ImageLoader(it.context) }
+        //binding.imageLoader = ImageLoader(requireActivity())
+
+        viewModel.images.observe(viewLifecycleOwner) {
+            viewModel.images.value?.let { it1 -> upDateCat(it1) }
+        }
+
+        //imageLoader = view?.let { ImageLoader(it.context) }
+        //viewModel.imageLoader = imageLoader*/
 
 
         //val binding = GridViewItemBinding.inflate(inflater)
@@ -50,7 +60,12 @@ class KittensFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    fun upDateCat(images: List<CatObject>) {
+        //binding.catObject = images[0]
 
+        //binding.imageLoader.loadImage(binding.catObject.imgUrl, binding.catImageView)
+
+    }
 
 
 }

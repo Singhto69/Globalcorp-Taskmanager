@@ -9,23 +9,26 @@ import coil.request.ImageRequest
 
 
 class ImageLoader(context: Context) {
-    var imageLoader: ImageLoader? = null
+    lateinit var catImageLoader: coil.ImageLoader
+
+    var myContext: Context = context
 
     init {
-        imageLoader = ImageLoader.Builder(context)
+        catImageLoader = ImageLoader.Builder(context)
             .crossfade(true)
             .build()
+
     }
 
-    fun loadImage(context: Context, url: String, imageView: ImageView) {
-        val request = ImageRequest.Builder(context)
+    fun loadImage(url: String, imageView: ImageView) {
+        val request = ImageRequest.Builder(myContext)
             .data(url)
             .crossfade(true)
             .target(imageView)
             .build()
-
-        imageLoader?.enqueue(request)
+        catImageLoader.enqueue(request)
     }
 }
+
 
 

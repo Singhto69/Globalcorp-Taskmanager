@@ -19,12 +19,11 @@ from your dataset , individually and format them to be used by the viewholders i
 * */
 
 class MissionAdapter(
-    private val context: Context,
     private val dataset: List<mission>
 ) : RecyclerView.Adapter<MissionAdapter.itemViewHolder>() {
 
     class itemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val title: TextView = view.findViewById(R.id.mission_rcview_template_title)
+        //val title: TextView = view.findViewById(R.id.mission_rcview_template_title)
         val location: TextView = view.findViewById(R.id.mission_rcview_template_location)
         val description: TextView = view.findViewById(R.id.mission_rcview_template_description)
 
@@ -47,10 +46,12 @@ class MissionAdapter(
         the current item ( to be displayed )
          */
         val currentitem = dataset[position]
-        holder.title.text = currentitem.title
-        holder.location.text = currentitem.location
-        holder.description.text = currentitem.description
+        //holder.title.text = currentitem.title
+        holder.location.text = currentitem!!.location
+        holder.description.text = currentitem!!.description
 
     }
+
+
 
 }

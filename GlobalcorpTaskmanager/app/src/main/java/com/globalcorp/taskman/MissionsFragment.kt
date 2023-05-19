@@ -10,16 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.globalcorp.taskman.database.missiondb
 import com.globalcorp.taskman.databinding.FragmentMissionsBinding
+import com.ltu.m7019e.v23.themoviedb.adapter.MovieListAdapter
 import kotlinx.coroutines.NonDisposableHandle.parent
 
 
 class MissionsFragment : Fragment() {
     private var _binding: FragmentMissionsBinding? = null
     private val binding get() = _binding!!
-    private var thisContext: Context? = null
-
-    private lateinit var adapter: MissionAdapter
-    private lateinit var recyclerView: RecyclerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,23 +42,30 @@ class MissionsFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentMissionsBinding.inflate(inflater, container, false)
 
+        val myDataSet = missiondb().loadlist()
+        binding.recyclerView1.adapter = MissionAdapter(myDataSet)
 
 
-
-        return inflater.inflate(R.layout.fragment_missions, container, false)
+        //return inflater.inflate(R.layout.fragment_missions, container, false)
         //return view
+        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?)  {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val myDataSet = missiondb().loadlist()
 
-        val layoutManager = LinearLayoutManager(context)
-        recyclerView = binding.recyclerView1
-        recyclerView.layoutManager = layoutManager
-        recyclerView.setHasFixedSize(true)
-        adapter = context?.let { MissionAdapter(it, myDataSet) }!!
-        recyclerView.adapter = adapter
+
+        //val missionAdapter = context?.let { MissionAdapter(it, myDataSet) }!!
+
+
+        //val layoutManager = LinearLayoutManager(context)
+
+        // requireActivity()
+
+
+        //recyclerView.layoutManager = layoutManager
+
+        //recyclerView.setHasFixedSize(true)
 
 
     }
