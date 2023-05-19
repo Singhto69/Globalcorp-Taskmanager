@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
     id 'kotlin-kapt'
 }
 
@@ -73,6 +74,17 @@ dependencies {
 
     // Coil for url img download and display
     implementation "io.coil-kt:coil:1.1.1"
+
+    implementation("androidx.room:room-runtime:2.5.1")
+    annotationProcessor("androidx.room:room-compiler:2.5.1")
+    kapt("androidx.room:room-compiler:2.5.1")
+
+    implementation("androidx.room:room-ktx:2.5.1")
+
+
+
+
+
 
 
 }

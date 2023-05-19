@@ -4,11 +4,14 @@ buildscript {
         // where the versions of the plugin needs to be the same as the version of the
         // library defined in the app Gradle file
         kotlin_version = "1.8.0"
+        room_version = '2.5.0'
+        nav_version = '2.5.3'
     }
     repositories {
 
         google()
         mavenCentral()
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.1'
