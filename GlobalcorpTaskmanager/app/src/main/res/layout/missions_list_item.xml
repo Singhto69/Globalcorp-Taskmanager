@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="xmlViewModel"
+            type="com.globalcorp.taskman.MissionsViewModel" />
+
+
+        <variable
+            name="mission"
+            type="com.globalcorp.taskman.models.Mission" />
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/missions_list_item_cl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/mission_list_item_title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="2dp"
+            android:text="@{mission.title}"
+            app:layout_constraintBottom_toTopOf="@id/mission_list_item_timestart_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Title" />
+
+
+        <TextView
+            android:id="@+id/mission_list_item_timestart_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="2dp"
+            android:text="@{mission.timeStart}"
+            app:layout_constraintBottom_toTopOf="@id/mission_list_item_location_textview"
+            app:layout_constraintEnd_toStartOf="@id/mission_list_item_timestop_textview"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mission_list_item_title_textview"
+
+            tools:text="08:00" />
+
+        <TextView
+            android:id="@+id/mission_list_item_timestop_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:text="@{mission.timeStop}"
+            app:layout_constraintEnd_toStartOf="@id/mission_list_item_date_textview"
+            app:layout_constraintStart_toEndOf="@id/mission_list_item_timestart_textview"
+            app:layout_constraintTop_toBottomOf="@id/mission_list_item_title_textview"
+            tools:text="16:00" />
+
+        <TextView
+            android:id="@+id/mission_list_item_date_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:text="@{mission.date}"
+            app:layout_constraintStart_toEndOf="@id/mission_list_item_timestop_textview"
+            app:layout_constraintTop_toBottomOf="@id/mission_list_item_title_textview"
+
+
+            tools:text="051123" />
+
+        <TextView
+            android:id="@+id/mission_list_item_location_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="36dp"
+            android:text="@{mission.location}"
+            app:layout_constraintStart_toEndOf="@id/mission_list_item_date_textview"
+            app:layout_constraintTop_toBottomOf="@id/mission_list_item_title_textview"
+            tools:text="Somestreet 123" />
+
+        <TextView
+            android:id="@+id/mission_list_item_description_textview"
+            android:layout_width="362dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            android:text="@{mission.description}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mission_list_item_timestart_textview"
+            tools:text="askffsafjlkasfjaskfjasljbvqeo" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

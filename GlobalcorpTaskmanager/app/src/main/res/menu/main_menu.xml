@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/app_bar_switch"
+        android:title="Switch"
+
+        app:actionLayout="@layout/switch_item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_switch_layout"
+        android:icon="@drawable/ic_action_name"
+        android:title="im hardcoded rn"
+        app:showAsAction="always" />
+    <item android:title="1" />
+    <item android:title="2" />
+
+</menu>

@@ -15,5 +15,4 @@ data class CatSqlObject(
     val width: Int,
     @ColumnInfo(name = "stock")
     val height: Int
-
 )

@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.globalcorp.taskman.databinding.MissionRcviewTemplateBinding
-import com.globalcorp.taskman.model.mission
+import com.globalcorp.taskman.models.Mission
 
 //private val movieClickListener: MovieListClickListener <- into movielist adapter
 // , movieClickListener: MovieListClickListener <- into bind
 
 
-class MovieListAdapter() :  ListAdapter<mission, MovieListAdapter.ViewHolder>(MovieListDiffCallback()){
+class MovieListAdapter() :  ListAdapter<Mission, MovieListAdapter.ViewHolder>(MovieListDiffCallback()){
     class ViewHolder(private var binding: MissionRcviewTemplateBinding) : RecyclerView.ViewHolder(binding.root) {
         // MovieListItemBinding
-        fun bind(mission: mission) {
+        fun bind(mission: Mission) {
             //binding.mission = mission
             //binding.clickListener = movieClickListener
             binding.executePendingBindings()
@@ -39,12 +39,12 @@ class MovieListAdapter() :  ListAdapter<mission, MovieListAdapter.ViewHolder>(Mo
     }
 }
 
-class MovieListDiffCallback : DiffUtil.ItemCallback<mission>() {
-    override fun areItemsTheSame(oldItem: mission, newItem: mission): Boolean {
+class MovieListDiffCallback : DiffUtil.ItemCallback<Mission>() {
+    override fun areItemsTheSame(oldItem: Mission, newItem: Mission): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: mission, newItem: mission): Boolean {
+    override fun areContentsTheSame(oldItem: Mission, newItem: Mission): Boolean {
         return oldItem == newItem
     }
 

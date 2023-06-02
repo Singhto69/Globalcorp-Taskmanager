@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.globalcorp.taskman.databinding.FragmentStartBinding
 import androidx.navigation.fragment.findNavController
 import com.globalcorp.taskman.utils.ImageLoader
@@ -18,6 +20,7 @@ class StartFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
     }
 

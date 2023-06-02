@@ -13,9 +13,7 @@
             name="CatObject"
             type="com.globalcorp.taskman.network.CatObject" />
 
-        <variable
-            name="imageLoader"
-            type="com.globalcorp.taskman.utils.ImageLoader" />
+
     </data>
 
     <FrameLayout

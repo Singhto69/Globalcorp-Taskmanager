@@ -11,23 +11,15 @@ import com.globalcorp.taskman.utils.ImageLoader
 
 
 class KittensViewModel() : ViewModel() {
-    // The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<String>()
-
-    // The external immutable LiveData for the request status
     val status: LiveData<String> = _status
 
     private val _images = MutableLiveData<List<CatObject>>()
     val images: LiveData<List<CatObject>> = _images
 
 
-
-    var imageLoader : ImageLoader? = null
-
     init {
-
         getCat()
-
     }
 
 
@@ -45,17 +37,4 @@ class KittensViewModel() : ViewModel() {
         }
     }
 
-    private fun getCats() {
-        viewModelScope.launch {
-            try {
-                val listResult = CatApi.retrofitService.getCat()
-                _status.value = "Success: ${listResult} retrieved"
-
-
-
-            } catch (e: Exception) {
-                _status.value = "Failure: ${e.message}"
-            }
-        }
-    }
 }

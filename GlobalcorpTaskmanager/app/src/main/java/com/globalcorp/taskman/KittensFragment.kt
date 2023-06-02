@@ -19,38 +19,26 @@ class KittensFragment : Fragment() {
     private var _binding: FragmentKittensBinding? = null
     private val binding get() = _binding!!
 
-    private var imageLoader: ImageLoader? = null
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentKittensBinding.inflate(inflater)
+        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
+        binding.lifecycleOwner = this
         /*
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(SEARCH_PREFIX + movie.id))
-            startActivity(intent)
-
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(SEARCH_PREFIX + movie.id))
+        startActivity(intent)
          */
 
         binding.xmlViewModel = viewModel
 
-        //imageLoader = view?.let { ImageLoader(it.context) }
-        //binding.imageLoader = ImageLoader(requireActivity())
-
-        viewModel.images.observe(viewLifecycleOwner) {
+        /*viewModel.images.observe(viewLifecycleOwner) {
             viewModel.images.value?.let { it1 -> upDateCat(it1) }
-        }
-
-        //imageLoader = view?.let { ImageLoader(it.context) }
-        //viewModel.imageLoader = imageLoader*/
-
+        }*/
 
         //val binding = GridViewItemBinding.inflate(inflater)
-        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
-        //binding.lifecycleOwner = this
-
         // Giving the binding access to the OverviewViewModel
 
         return binding.root

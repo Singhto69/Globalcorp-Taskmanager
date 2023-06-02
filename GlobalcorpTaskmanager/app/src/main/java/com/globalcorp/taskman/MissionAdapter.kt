@@ -1,57 +1,75 @@
 package com.globalcorp.taskman
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.globalcorp.taskman.database.missiondb
-import com.globalcorp.taskman.model.mission
+import com.globalcorp.taskman.databinding.MissionsListItemBinding
+import com.globalcorp.taskman.models.Mission
 
-/* This is the adapter. The middleman between your dataset and recyclerview. It will take items
-from your dataset , individually and format them to be used by the viewholders in the recyclerview.
-* Viewholders are placeholder views in the recyclerview. , one viewholder represents one list item
-* in recyclerview.
-* A ViewHolder instance holds references to the individual views within a list item layout
-* Context provides information on how to resolve string resources
-* */
+/**
+ * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
+ * data, including computing diffs between lists.
+ */
+class MissionAdapter :
+    ListAdapter<Mission, MissionAdapter.MissionsViewHolder>(DiffCallback) {
 
-class MissionAdapter(
-    private val dataset: List<mission>
-) : RecyclerView.Adapter<MissionAdapter.itemViewHolder>() {
-
-    class itemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        //val title: TextView = view.findViewById(R.id.mission_rcview_template_title)
-        val location: TextView = view.findViewById(R.id.mission_rcview_template_location)
-        val description: TextView = view.findViewById(R.id.mission_rcview_template_description)
-
+    /**
+     * The MarsPhotosViewHolder constructor takes the binding variable from the associated
+     * GridViewItem, which nicely gives it access to the full [MarsPhoto] information.
+     */
+    class MissionsViewHolder(private var binding: MissionsListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(mission: Mission) {
+            binding.mission = mission
+            // This is important, because it forces the data binding to execute immediately,
+            // which allows the RecyclerView to make the correct view size measurements
+            binding.executePendingBindings()
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): itemViewHolder {
-        /*
-        The layout inflater knows how to inflate an XML layout into a hierarchy of view objects.
-        Take parents layout inflater then inflate this list item view.*/
-        val adapterLayout =
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.mission_rcview_template, parent, false)
-        return itemViewHolder(adapterLayout)
+    /**
+     * Allows the RecyclerView to determine which items have changed when the [List] of
+     * [MarsPhoto] has been updated.
+     */
+    companion object DiffCallback : DiffUtil.ItemCallback<Mission>() {
+        override fun areItemsTheSame(oldItem: Mission, newItem: Mission): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Mission, newItem: Mission): Boolean {
+            return oldItem.title == newItem.title
+        }
     }
 
-    override fun getItemCount() = dataset.size
-
-    override fun onBindViewHolder(holder: itemViewHolder, position: Int) {
-        /* this updates all the views referenced by the view holder , to reflect
-        the current item ( to be displayed )
-         */
-        val currentitem = dataset[position]
-        //holder.title.text = currentitem.title
-        holder.location.text = currentitem!!.location
-        holder.description.text = currentitem!!.description
-
+    /**
+     * Create new [RecyclerView] item views (invoked by the layout manager)
+     */
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): MissionsViewHolder {
+        return MissionsViewHolder(
+            MissionsListItemBinding.inflate(LayoutInflater.from(parent.context))
+        )
     }
 
+    /**
+     * Replaces the contents of a view (invoked by the layout manager)
+     */
+    override fun onBindViewHolder(holder: MissionsViewHolder, position: Int) {
+        val mission = getItem(position)
+        holder.bind(mission)
+    }
+
+    fun areItemsTheSame(oldItem: Mission, newItem: Mission): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    fun areContentsTheSame(oldItem: Mission, newItem: Mission): Boolean {
+        return oldItem.title == newItem.title
+    }
 
 
 }

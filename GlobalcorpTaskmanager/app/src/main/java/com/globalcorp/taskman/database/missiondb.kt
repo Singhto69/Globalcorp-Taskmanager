@@ -1,36 +1,37 @@
 package com.globalcorp.taskman.database
 
-import com.globalcorp.taskman.R
-import com.globalcorp.taskman.model.mission
+import com.globalcorp.taskman.models.Mission
 
  class missiondb {
-    val list = mutableListOf<mission>()
+    val list = mutableListOf<Mission>()
 
     init {
         list.add(
-            mission(
+            Mission(
                 0,
                 "Reinstall Computers",
                 "LTU",
                 "14152 and c215j,windows",
                 "5/8/23",
                 "8:30",
-                "13:30"
+                "13:30",
+                1
             )
         )
         list.add(
-            mission(
+            Mission(
                 1,
                 "Cat daycare",
                 "Catcenter , Catstreet 123",
                 "Mittens and sr meowsalot. Alina will tell you more",
                 "6/8/23",
                 "8:30",
-                "15:20"
+                "15:20",
+                4
             )
         )
         list.add(
-            mission(
+            Mission(
                 2,
                 "Cleaning",
                 "Globocorp, globostreet 1",
@@ -38,11 +39,12 @@ import com.globalcorp.taskman.model.mission
                         " it better be mint clean rookie, MINT CLEAN",
                 "6/8/23",
                 "7:30",
-                "16:30"
+                "16:30",
+                1
             )
         )
         list.add(
-            mission(
+            Mission(
                 3,
                 "Repair printer",
                 "Globocorp, globostreet 2",
@@ -50,39 +52,13 @@ import com.globalcorp.taskman.model.mission
                 "6/8/23",
                 "8:00",
                 "16:00"
+                ,4
             )
         )
     }
 
-    fun loadlist(): MutableList<mission> {
+    fun loadlist(): MutableList<Mission> {
         return list
     }
 
 }
-
-/* class missiondb {
-
-
-    fun loadMissions(): List<mission> {
-        return listOf<mission>(
-            mission(
-                0,
-                "Reinstall Computers",
-                "LTU",
-                "14152 and c215j,windows",
-                "5/8/23",
-                "8:30",
-                "13:30"
-            ),
-            mission(
-                1,
-                "Cat daycare",
-                "Catcenter , Catstreet 123",
-                "Mittens and sr meowsalot. Alina will tell you more",
-                "6/8/23",
-                "8:30",
-                "15:20"
-            )
-        )
-    }
-}*/
