@@ -1,6 +1,8 @@
 package com.globalcorp.taskman.models
 
-
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+@Parcelize
 data class Mission(
     val id: Int,
     val title: String,
@@ -10,4 +12,4 @@ data class Mission(
     val timeStart: String,
     val timeStop: String,
     val userId: Int
-)
+) : Parcelable

@@ -15,6 +15,8 @@ class MissionsFragment : Fragment() {
     private var _binding: FragmentMissionsBinding? = null
     private val binding get() = _binding!!
 
+    private var missionAdapter : MissionAdapter? = null
+
     //private val viewModel: MissionsViewModel by viewModels()
 
     private val viewModel: MissionsViewModel by activityViewModels {
@@ -42,10 +44,10 @@ class MissionsFragment : Fragment() {
         binding.xmlViewModel = viewModel
 
 
+        missionAdapter = MissionAdapter()
+        binding.recyclerViewMissions.adapter = missionAdapter
 
-        binding.recyclerViewMissions.adapter = MissionAdapter()
 
-        //binding.recyclerViewMissions.adapter = MissionAdapter(myDataSet)
 
         /*
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
@@ -56,7 +58,9 @@ class MissionsFragment : Fragment() {
 
         binding.photosGrid.adapter = PhotoGridAdapter()*/
 
-        viewModel.missions.observe(viewLifecycleOwner) { viewModel.updateDb() }
+        viewModel.missions.observe(viewLifecycleOwner) {
+            it?.let { missionAdapter!!.submitList(it) }
+             }
 
 
 

@@ -14,7 +14,7 @@ import com.globalcorp.taskman.models.Mission
  adapter when a View item has the imageUrl attribute.
  */
 
-@BindingAdapter("listData")
+@BindingAdapter("missionListData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Mission>?) {
     val adapter = recyclerView.adapter as MissionAdapter
     adapter.submitList(data)
@@ -23,13 +23,13 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Mission>?) {
 /**
  * Uses the Coil library to load an image by URL into an [ImageView]
  */
-/*@BindingAdapter("imageUrl")
+@BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
         val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
         imgView.load(imgUri) {
-            placeholder(R.drawable.loading_animation)
-            error(R.drawable.ic_broken_image)
+            /*placeholder(R.drawable.loading_animation)
+            error(R.drawable.ic_broken_image)*/
         }
     }
-}*/
+}

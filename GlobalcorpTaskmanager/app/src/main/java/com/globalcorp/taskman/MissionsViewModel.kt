@@ -56,11 +56,20 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
         //id:Int, title: String, location: String, description: String,
         //                      date: String, timeStart: String,
         //                      timeStop: String, userId: Int
-        if (mission != null){
+        if (mission != null) {
             val newItem =
-                getNewMissionEntry(mission.id, mission.title, mission.location, mission.description,
-                    mission.date, mission.timeStart, mission.timeStop, mission.userId)
+                getNewMissionEntry(
+                    mission.id, mission.title, mission.location, mission.description,
+                    mission.date, mission.timeStart, mission.timeStop, mission.userId
+                )
             insertMission(newItem)
+        }
+
+    }
+
+    fun deleteMission(missionId: Int) {
+        viewModelScope.launch {
+            missionsDao.deleteMissionById(missionId)
         }
 
     }
@@ -72,6 +81,7 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
                 val listResult = MissionsApiService.MissionsApi.retrofitService.getMissions()
                 _status.value = "Success: ${listResult} retrieved"
                 _missions.value = listResult
+                updateDb()
 
 
             } catch (e: Exception) {
@@ -79,6 +89,8 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
             }
         }
     }
+
+
 }
 
 class MissionsViewModelFactory(private val missionsDao: MissionsDao) : ViewModelProvider.Factory {

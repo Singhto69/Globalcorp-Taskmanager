@@ -1,7 +1,11 @@
 package com.globalcorp.taskman
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -26,8 +30,12 @@ class MissionAdapter :
             // This is important, because it forces the data binding to execute immediately,
             // which allows the RecyclerView to make the correct view size measurements
             binding.executePendingBindings()
+
+
         }
     }
+
+
 
     /**
      * Allows the RecyclerView to determine which items have changed when the [List] of
@@ -60,7 +68,27 @@ class MissionAdapter :
      */
     override fun onBindViewHolder(holder: MissionsViewHolder, position: Int) {
         val mission = getItem(position)
+        var thisContext = holder.itemView.context
+
         holder.bind(mission)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("geo:0,0?q=${mission.location}")
+            /*if (intent.resolveActivity(thisContext.packageManager) != null) {
+                thisContext.startActivity(intent)
+            } else {
+                Toast.makeText(thisContext, "Google Maps is not installed", Toast.LENGTH_SHORT).show()
+            }*/
+            thisContext.startActivity(intent)
+
+
+
+
+
+
+        }
+
     }
 
     fun areItemsTheSame(oldItem: Mission, newItem: Mission): Boolean {
@@ -71,5 +99,10 @@ class MissionAdapter :
         return oldItem.title == newItem.title
     }
 
+
+}
+
+
+class MissionClickListener {
 
 }

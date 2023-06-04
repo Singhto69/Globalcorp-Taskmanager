@@ -22,7 +22,6 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical"
             app:layoutManager="LinearLayoutManager"
-            app:listData="@{xmlViewModel.missions}"
             tools:listitem="@layout/mission_rcview_template" />
 
 

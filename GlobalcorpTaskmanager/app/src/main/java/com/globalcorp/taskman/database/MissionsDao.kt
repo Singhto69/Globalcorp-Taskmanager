@@ -21,5 +21,8 @@ interface MissionsDao {
     @Query("SELECT * from item ORDER BY id ASC")
     fun getMissions(): Flow<List<MissionsSqlObject>>
 
+    @Query("DELETE FROM item WHERE id=:missionId")
+    fun deleteMissionById(missionId : Int)
+
 
 }
