@@ -32,17 +32,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         /*val toolbar : Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)*/
-
-        /*if (container != null) {
-            val myDataSet = missiondb().loadlist()
-            //thisContext = container.getContext()
-            //val recyclerView = binding.recyclerView1
-            binding.recyclerView1.adapter = MissionAdapter(container.context,myDataSet)
-            binding.recyclerView1.setHasFixedSize(true)
-
-        }*/
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
