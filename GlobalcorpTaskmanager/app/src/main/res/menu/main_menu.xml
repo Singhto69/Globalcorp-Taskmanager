@@ -3,11 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_switch_layout"
-        android:icon="@drawable/ic_action_name"
-        android:title="im hardcoded rn"
-        app:showAsAction="always" />
-    <item android:title="1" />
-    <item android:title="2" />
+        android:id="@+id/menu_dropdown_1"
+        android:title="Switch"
+        app:actionLayout="@layout/switch_item" />
+
+
+    <item
+        android:id="@+id/menu_dropdown_2"
+        android:title="2"
+        />
 
 </menu>

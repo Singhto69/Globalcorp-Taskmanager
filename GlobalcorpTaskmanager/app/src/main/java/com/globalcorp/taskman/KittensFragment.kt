@@ -27,10 +27,7 @@ class KittensFragment : Fragment() {
         val binding = FragmentKittensBinding.inflate(inflater)
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
-        /*
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(SEARCH_PREFIX + movie.id))
-        startActivity(intent)
-         */
+
 
         binding.xmlViewModel = viewModel
 
@@ -46,13 +43,6 @@ class KittensFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    fun upDateCat(images: List<CatObject>) {
-        //binding.catObject = images[0]
-
-        //binding.imageLoader.loadImage(binding.catObject.imgUrl, binding.catImageView)
-
     }
 
 

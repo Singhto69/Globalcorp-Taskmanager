@@ -1,15 +1,13 @@
 package com.globalcorp.taskman
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
+import androidx.annotation.NonNull
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
+
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -18,33 +16,26 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-
-        //val navController2 = findNavController(R.id.nav_host_fragment)
-
-        val navController2 = navHostFragment.navController
-        //setSupportActionBar(findViewById(R.id.maintoolbar))
-        val appBarConfig = AppBarConfiguration(navController2.graph)
-        findViewById<Toolbar>(R.id.maintoolbar).setupWithNavController(navController2, appBarConfig)
-
-
-        /*val toolbar : Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)*/
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        val layoutButton = menu?.findItem(R.id.action_switch_layout)
-
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
-    }
 }
+
+
+/* Setup the toolbar using the navcontroller , this simplifies the process of making
+  the title fragment specific
+   */
+/*val toolbar = findViewById<Toolbar>(R.id.maintoolbar)
+setSupportActionBar(toolbar)
+val navController2 = navHostFragment.navController
+val appBarConfig = AppBarConfiguration(navController2.graph)
+toolbar.setupWithNavController(navController2, appBarConfig)*/
+
+//findViewById<Toolbar>(R.id.maintoolbar).setupWithNavController(navController2, appBarConfig)
+
+//val toolbar = findViewById<Toolbar>(R.id.maintoolbar)
+//setSupportActionBar(toolbar)
 
 /*
   <style name="Theme.GlobalcorpTaskmanager" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -70,3 +61,20 @@ in activity main
         />
 
  */
+
+/*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    getMenuInflater().inflate(R.menu.main_menu, menu);
+    //val layoutButton = menu?.findItem(R.id.action_switch_layout)
+
+    return true
+}
+
+override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return super.onOptionsItemSelected(item)
+}
+
+fun onFragment1ButtonClick(view: View) {
+
+    Toast.makeText(this, "Fragment 1 button clicked", Toast.LENGTH_SHORT).show()
+
+}*/

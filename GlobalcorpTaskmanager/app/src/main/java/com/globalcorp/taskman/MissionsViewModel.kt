@@ -1,16 +1,17 @@
 package com.globalcorp.taskman
 
+import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.globalcorp.taskman.database.MissionsDao
 import com.globalcorp.taskman.database.MissionsSqlObject
 import com.globalcorp.taskman.models.Mission
 import com.globalcorp.taskman.network.MissionsApiService
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.count
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.toList
 
 
 class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
@@ -22,27 +23,23 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
 
 
     init {
-        updateDb()
-
-
-        // 1. API get missions
-        // 2. Double check and update db
-        // 3. update the display list
-
+        refresh()
 
     }
-    fun updateDb() {
-        apiSyncMissions()
+    // 1. API get missions
+    // 2. update db
+    // 3. grab missions from db
+    // 4. Assign to missions for livedata display
 
-        /*val specificItem = _missions.value?.get(0)
-        addNewMission(specificItem)*/
+    fun refresh() {
+        apiDbSync()
     }
 
-    fun displayAssignedMissions(){
+    fun displayAssignedMissions() {
 
     }
 
-    fun displayFreeMissions(){
+    fun displayFreeMissions() {
 
     }
 
@@ -54,11 +51,24 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
         return allMissions
     }
 
+    private fun deleteAll() {
+        viewModelScope.launch {
+            missionsDao.wipe()
+        }
+    }
+
+    private fun retrieveAll() {
+        viewModelScope.launch {
+            missionsDao.getMissions()
+        }
+    }
+
 
     private fun insertMission(mission: MissionsSqlObject) {
         viewModelScope.launch {
             missionsDao.insert(mission)
         }
+
     }
 
     private fun getNewMissionEntry(
@@ -101,49 +111,29 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
 
     }
 
-    /* private suspend fun zeroCheck() {
-        viewmodel.getListener()?.collect { myClass->
-            //do something here
-            return@collect
-        }
-        withContext(Dispatchers.Main) { return@withContext updateUI() }
-        //the code should flow downwards as usual
-    }*/
-
-
-    private fun apiSyncMissions() {
+    private fun apiDbSync() {
         viewModelScope.launch {
             try {
                 val listResult = MissionsApiService.MissionsApi.retrofitService.getMissions()
-                _status.value = "Success: ${listResult} retrieved"
-
-                // if listresult = 0 then do nothing
-
-                /*for (mission in listResult) {
-                    val missionCheck = missionsDao.getMission(mission.id)
-                    var missionCount = 0
-                    missionCheck.collect { list ->
-                        missionCount = missionCheck.count()
-                    }
-                    withContext(Dispatchers.Main){
-                        if (missionCount > 0) {
-                            missionsDao.update(
-                                getNewMissionEntry(
-                                    mission.id, mission.title, mission.location, mission.description,
-                                    mission.date, mission.timeStart, mission.timeStop, mission.userId
-                                )
-                            )
-                        } else {
-                            addNewMission(mission)
-                        }
-                    }
-
-                }*/
+                _status.value = "Success"
+                for (mission in listResult) {
+                    addNewMission(mission)
+                }
                 _missions.value = listResult
 
             } catch (e: Exception) {
-                _status.value = "Failure: ${e.message}"
+                _status.value = "Failure"
+                //var allMissions: Flow<List<MissionsSqlObject>>? = null
+
+                viewModelScope.launch {
+                    var allMissions = missionsDao.getMissions().toList()
+                }
+                var s: String = "s"
+
+                //_missions.value = allMissions
+
             }
+
         }
     }
 
@@ -160,3 +150,27 @@ class MissionsViewModelFactory(private val missionsDao: MissionsDao) : ViewModel
     }
 
 }
+
+// Code for update db in apisyncmission
+// if listresult = 0 then do nothing
+
+/*for (mission in listResult) {
+    val missionCheck = missionsDao.getMission(mission.id)
+    var missionCount = 0
+    missionCheck.collect { list ->
+        missionCount = missionCheck.count()
+    }
+    withContext(Dispatchers.Main){
+        if (missionCount > 0) {
+            missionsDao.update(
+                getNewMissionEntry(
+                    mission.id, mission.title, mission.location, mission.description,
+                    mission.date, mission.timeStart, mission.timeStop, mission.userId
+                )
+            )
+        } else {
+            addNewMission(mission)
+        }
+    }
+
+}*/

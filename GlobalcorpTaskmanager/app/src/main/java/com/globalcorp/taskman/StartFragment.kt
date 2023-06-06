@@ -20,8 +20,6 @@ class StartFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
 
     override fun onCreateView(
@@ -30,17 +28,13 @@ class StartFragment : Fragment() {
     ): View? {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
-
-
-
         binding.startToMissionButton.setOnClickListener {
             findNavController().navigate(R.id.action_startFragment_to_missionsFragment)
         }
 
-        binding.startToKittensFragmentButton.setOnClickListener{
+        binding.startToKittensFragmentButton.setOnClickListener {
             findNavController().navigate(R.id.action_startFragment_to_kittensFragment)
         }
-
 
         return binding.root
     }
@@ -49,10 +43,4 @@ class StartFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    /*private fun navStartToMissions() {
-        findNavController().navigate(R.id.action_startFragment_to_missionsFragment)
-        //  android:onClick="@{() -> StartFragment.navStartToMissions()}"
-        //  FOR WHAT THIS NOT WORKING BLYAT
-    }*/
 }

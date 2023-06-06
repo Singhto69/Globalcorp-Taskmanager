@@ -2,7 +2,7 @@ package com.globalcorp.taskman.database
 
 import com.globalcorp.taskman.models.Mission
 
- class missiondb {
+ class missiondbhardcoded {
     val list = mutableListOf<Mission>()
 
     init {

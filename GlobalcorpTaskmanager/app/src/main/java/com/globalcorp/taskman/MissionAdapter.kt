@@ -36,7 +36,6 @@ class MissionAdapter :
     }
 
 
-
     /**
      * Allows the RecyclerView to determine which items have changed when the [List] of
      * [MarsPhoto] has been updated.
@@ -81,12 +80,6 @@ class MissionAdapter :
                 Toast.makeText(thisContext, "Google Maps is not installed", Toast.LENGTH_SHORT).show()
             }*/
             thisContext.startActivity(intent)
-
-
-
-
-
-
         }
 
     }

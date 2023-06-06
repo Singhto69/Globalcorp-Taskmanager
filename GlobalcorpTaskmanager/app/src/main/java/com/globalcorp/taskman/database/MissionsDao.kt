@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MissionsDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(missionsObject: MissionsSqlObject)
 
     @Update
@@ -23,6 +23,9 @@ interface MissionsDao {
 
     @Query("DELETE FROM item WHERE id=:missionId")
     fun deleteMissionById(missionId : Int)
+
+    @Query("DELETE FROM item")
+    fun wipe()
 
 
 }
