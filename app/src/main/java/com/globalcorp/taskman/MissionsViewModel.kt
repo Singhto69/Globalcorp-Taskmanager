@@ -11,26 +11,16 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 
 
-
 class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
     private val _status = MutableLiveData<String>()
     val status: LiveData<String> = _status
-
-    private val _missions = MutableLiveData<List<Mission>>()
-    val missions: LiveData<List<Mission>> = _missions
-
-    private val _allMissions = MutableLiveData<List<MissionsSqlObject>>()
-    val allMissions: LiveData<List<MissionsSqlObject>> = _allMissions
 
     init {
         refresh()
 
     }
-    // 1. API get missions
-    // 2. update db
-    // 3. grab missions from db
-    // 4. Assign to missions for livedata display
 
+    // 1. API get missions 2. update db 3. grab missions from db 4. Assign to missions for livedata display
     fun refresh() {
         apiDbSync()
 
@@ -108,8 +98,6 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
                 for (mission in listResult) {
                     addNewMission(mission)
                 }
-                //_missions.value = listResult
-                //getAllMissions()
                 allMissions()
             } catch (e: Exception) {
                 _status.value = "Failure"
@@ -132,27 +120,3 @@ class MissionsViewModelFactory(private val missionsDao: MissionsDao) : ViewModel
     }
 
 }
-
-// Code for update db in apisyncmission
-// if listresult = 0 then do nothing
-
-/*for (mission in listResult) {
-    val missionCheck = missionsDao.getMission(mission.id)
-    var missionCount = 0
-    missionCheck.collect { list ->
-        missionCount = missionCheck.count()
-    }
-    withContext(Dispatchers.Main){
-        if (missionCount > 0) {
-            missionsDao.update(
-                getNewMissionEntry(
-                    mission.id, mission.title, mission.location, mission.description,
-                    mission.date, mission.timeStart, mission.timeStop, mission.userId
-                )
-            )
-        } else {
-            addNewMission(mission)
-        }
-    }
-
-}*/

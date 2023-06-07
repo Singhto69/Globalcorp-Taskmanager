@@ -13,8 +13,6 @@ class KittensViewModel() : ViewModel() {
     private val _images = MutableLiveData<List<CatObject>>()
     val images: LiveData<List<CatObject>> = _images
 
-
-
     init {
         apiGetCats()
     }
@@ -22,7 +20,6 @@ class KittensViewModel() : ViewModel() {
     fun refresh(){
         apiGetCats()
     }
-
 
     private fun apiGetCats() {
         viewModelScope.launch {

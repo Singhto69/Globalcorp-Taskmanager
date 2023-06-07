@@ -26,17 +26,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.globalcorp.taskman.databinding.CatGridItemBinding
 import com.globalcorp.taskman.models.CatObject
 
-/**
- * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
- * data, including computing diffs between lists.
- */
 class KittensAdapter :
     ListAdapter<CatObject, KittensAdapter.KittensViewHolder>(DiffCallback) {
 
-    /**
-     * The MarsPhotosViewHolder constructor takes the binding variable from the associated
-     * GridViewItem, which nicely gives it access to the full [MarsPhoto] information.
-     */
     class KittensViewHolder(private var binding: CatGridItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(catObject: CatObject) {
@@ -47,10 +39,6 @@ class KittensAdapter :
         }
     }
 
-    /**
-     * Allows the RecyclerView to determine which items have changed when the [List] of
-     * [MarsPhoto] has been updated.
-     */
     companion object DiffCallback : DiffUtil.ItemCallback<CatObject>() {
         override fun areItemsTheSame(oldItem: CatObject, newItem: CatObject): Boolean {
             return oldItem.id == newItem.id
@@ -61,9 +49,6 @@ class KittensAdapter :
         }
     }
 
-    /**
-     * Create new [RecyclerView] item views (invoked by the layout manager)
-     */
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -73,9 +58,6 @@ class KittensAdapter :
         )
     }
 
-    /**
-     * Replaces the contents of a view (invoked by the layout manager)
-     */
     override fun onBindViewHolder(holder: KittensViewHolder, position: Int) {
         val cat = getItem(position)
         holder.bind(cat)

@@ -21,8 +21,8 @@ class MissionAdapter :
     ListAdapter<MissionsSqlObject, MissionAdapter.MissionsViewHolder>(DiffCallback) {
 
     /**
-     * The MarsPhotosViewHolder constructor takes the binding variable from the associated
-     * GridViewItem, which nicely gives it access to the full [MarsPhoto] information.
+     * constructor takes the binding variable from the associated
+     * GridViewItem, which nicely gives it access to the full information.
      */
     class MissionsViewHolder(private var binding: MissionsListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
