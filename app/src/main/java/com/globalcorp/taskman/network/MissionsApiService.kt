@@ -8,15 +8,13 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
 
-private const val BASE_URL =
-    "http://92.32.46.83:80/"
-
-private const val BASE_URL2 =
-    ""
+private const val BASE_URL =  "http://92.32.46.83:80/"
 
 private const val api_key = ""
+
 private const val username = "Joe%20Average"
-class MissionsApiService  {
+
+class MissionsApiService {
     /* The call to create() function on a Retrofit object
      is expensive and the app needs only one instance of Retrofit API service.
      So, you expose the service to the rest of the app using object declaration.

@@ -1,6 +1,7 @@
 package com.globalcorp.taskman.database
 
 import androidx.room.*
+import com.globalcorp.taskman.models.Mission
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -15,6 +16,8 @@ interface MissionsDao {
     suspend fun delete(missionsObject: MissionsSqlObject)
 
 
+    @Query("SELECT * FROM item ORDER BY id ASC")
+    fun getAll(): Flow<List<MissionsSqlObject>>
     @Query("SELECT * from item WHERE id = :id")
     fun getMission(id: Int): Flow<MissionsSqlObject>
 

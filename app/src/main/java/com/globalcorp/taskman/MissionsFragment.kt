@@ -1,23 +1,20 @@
 package com.globalcorp.taskman
 
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.Button
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.globalcorp.taskman.databinding.FragmentMissionsBinding
-import java.io.Console
+import kotlinx.coroutines.launch
+
 
 
 class MissionsFragment : Fragment() {
@@ -34,12 +31,6 @@ class MissionsFragment : Fragment() {
         )
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,11 +42,18 @@ class MissionsFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.xmlViewModel = viewModel
 
+
         missionAdapter = MissionAdapter()
         binding.recyclerViewMissions.adapter = missionAdapter
 
-        viewModel.missions.observe(viewLifecycleOwner) {
+        /*viewModel.allMissions.observe(viewLifecycleOwner) {
             it?.let { missionAdapter!!.submitList(it) }
+        }*/
+
+        lifecycle.coroutineScope.launch {
+            viewModel.allMissions().collect() {
+                missionAdapter!!.submitList(it)
+            }
         }
 
         binding.recyclerViewMissions.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -92,8 +90,10 @@ class MissionsFragment : Fragment() {
 
             override fun onPrepareMenu(menu: Menu) {
                 // Handle for example visibility of menu items
-                val menuItem = menu.findItem(R.id.menu_dropdown_1)
-                menuItem.title = "Refresh"
+                val menuItem1 = menu.findItem(R.id.menu_dropdown_1)
+                menuItem1.title = "Refresh"
+                val menuItem2 = menu.findItem(R.id.menu_dropdown_2)
+                menuItem2.title = "Wipe"
 
             }
 
@@ -108,7 +108,9 @@ class MissionsFragment : Fragment() {
                         viewModel.refresh()
                     }
                     R.id.menu_dropdown_2 -> {
-                        println("2")
+
+                        viewModel.deleteAll()
+
                     }
                 }
                 return true

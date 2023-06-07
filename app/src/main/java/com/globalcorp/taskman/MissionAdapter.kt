@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.globalcorp.taskman.database.MissionsSqlObject
 import com.globalcorp.taskman.databinding.MissionsListItemBinding
 import com.globalcorp.taskman.models.Mission
 
@@ -17,7 +18,7 @@ import com.globalcorp.taskman.models.Mission
  * data, including computing diffs between lists.
  */
 class MissionAdapter :
-    ListAdapter<Mission, MissionAdapter.MissionsViewHolder>(DiffCallback) {
+    ListAdapter<MissionsSqlObject, MissionAdapter.MissionsViewHolder>(DiffCallback) {
 
     /**
      * The MarsPhotosViewHolder constructor takes the binding variable from the associated
@@ -25,7 +26,7 @@ class MissionAdapter :
      */
     class MissionsViewHolder(private var binding: MissionsListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(mission: Mission) {
+        fun bind(mission: MissionsSqlObject) {
             binding.mission = mission
             // This is important, because it forces the data binding to execute immediately,
             // which allows the RecyclerView to make the correct view size measurements
@@ -40,12 +41,18 @@ class MissionAdapter :
      * Allows the RecyclerView to determine which items have changed when the [List] of
      * [MarsPhoto] has been updated.
      */
-    companion object DiffCallback : DiffUtil.ItemCallback<Mission>() {
-        override fun areItemsTheSame(oldItem: Mission, newItem: Mission): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<MissionsSqlObject>() {
+        override fun areItemsTheSame(
+            oldItem: MissionsSqlObject,
+            newItem: MissionsSqlObject
+        ): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Mission, newItem: Mission): Boolean {
+        override fun areContentsTheSame(
+            oldItem: MissionsSqlObject,
+            newItem: MissionsSqlObject
+        ): Boolean {
             return oldItem.title == newItem.title
         }
     }
@@ -67,7 +74,7 @@ class MissionAdapter :
      */
     override fun onBindViewHolder(holder: MissionsViewHolder, position: Int) {
         val mission = getItem(position)
-        var thisContext = holder.itemView.context
+        val thisContext = holder.itemView.context
 
         holder.bind(mission)
 
@@ -81,18 +88,7 @@ class MissionAdapter :
             }*/
             thisContext.startActivity(intent)
         }
-
     }
-
-    fun areItemsTheSame(oldItem: Mission, newItem: Mission): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    fun areContentsTheSame(oldItem: Mission, newItem: Mission): Boolean {
-        return oldItem.title == newItem.title
-    }
-
-
 }
 
 

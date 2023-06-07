@@ -1,13 +1,9 @@
 package com.globalcorp.taskman
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import com.globalcorp.taskman.network.CatApiService.CatApi
-import com.globalcorp.taskman.network.CatObject
-import com.globalcorp.taskman.utils.ImageLoader
+import com.globalcorp.taskman.models.CatObject
 
 
 class KittensViewModel() : ViewModel() {
@@ -18,12 +14,17 @@ class KittensViewModel() : ViewModel() {
     val images: LiveData<List<CatObject>> = _images
 
 
+
     init {
-        getCat()
+        apiGetCats()
+    }
+
+    fun refresh(){
+        apiGetCats()
     }
 
 
-    private fun getCat() {
+    private fun apiGetCats() {
         viewModelScope.launch {
             try {
                 val listResult = CatApi.retrofitService.getCat()
@@ -38,3 +39,4 @@ class KittensViewModel() : ViewModel() {
     }
 
 }
+

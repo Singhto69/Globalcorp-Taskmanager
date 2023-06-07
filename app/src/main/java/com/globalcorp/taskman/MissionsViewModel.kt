@@ -1,7 +1,5 @@
 package com.globalcorp.taskman
 
-import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.globalcorp.taskman.database.MissionsDao
 import com.globalcorp.taskman.database.MissionsSqlObject
@@ -9,9 +7,9 @@ import com.globalcorp.taskman.models.Mission
 import com.globalcorp.taskman.network.MissionsApiService
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.count
-import kotlinx.coroutines.flow.toList
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.coroutineScope
+
 
 
 class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
@@ -21,6 +19,8 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
     private val _missions = MutableLiveData<List<Mission>>()
     val missions: LiveData<List<Mission>> = _missions
 
+    private val _allMissions = MutableLiveData<List<MissionsSqlObject>>()
+    val allMissions: LiveData<List<MissionsSqlObject>> = _allMissions
 
     init {
         refresh()
@@ -33,6 +33,7 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
 
     fun refresh() {
         apiDbSync()
+
     }
 
     fun displayAssignedMissions() {
@@ -43,23 +44,11 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
 
     }
 
-    private fun getAllMissions(): Flow<List<MissionsSqlObject>>? {
-        var allMissions: Flow<List<MissionsSqlObject>>? = null
-        viewModelScope.launch {
-            allMissions = missionsDao.getMissions()
-        }
-        return allMissions
-    }
+    fun allMissions(): Flow<List<MissionsSqlObject>> = missionsDao.getAll()
 
-    private fun deleteAll() {
+    fun deleteAll() {
         viewModelScope.launch {
             missionsDao.wipe()
-        }
-    }
-
-    private fun retrieveAll() {
-        viewModelScope.launch {
-            missionsDao.getMissions()
         }
     }
 
@@ -119,19 +108,12 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
                 for (mission in listResult) {
                     addNewMission(mission)
                 }
-                _missions.value = listResult
-
+                //_missions.value = listResult
+                //getAllMissions()
+                allMissions()
             } catch (e: Exception) {
                 _status.value = "Failure"
-                //var allMissions: Flow<List<MissionsSqlObject>>? = null
-
-                viewModelScope.launch {
-                    var allMissions = missionsDao.getMissions().toList()
-                }
-                var s: String = "s"
-
-                //_missions.value = allMissions
-
+                allMissions()
             }
 
         }

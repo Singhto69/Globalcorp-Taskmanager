@@ -1,4 +1,4 @@
-package com.globalcorp.taskman.network
+package com.globalcorp.taskman.models
 
 import android.icu.text.ListFormatter.Width
 import com.squareup.moshi.Json
