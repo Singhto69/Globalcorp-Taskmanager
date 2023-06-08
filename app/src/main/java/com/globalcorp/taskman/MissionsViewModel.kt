@@ -1,5 +1,7 @@
 package com.globalcorp.taskman
 
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.*
 import com.globalcorp.taskman.database.MissionsDao
 import com.globalcorp.taskman.database.MissionsSqlObject
@@ -17,8 +19,15 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
 
     init {
         refresh()
-
     }
+
+    /*fun setup() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            refresh()
+            setup()
+        }, 5000)
+    }*/
+
 
     // 1. API get missions 2. update db 3. grab missions from db 4. Assign to missions for livedata display
     fun refresh() {
@@ -51,9 +60,14 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
     }
 
     private fun getNewMissionEntry(
-        id: Int, title: String, location: String, description: String,
-        date: String, timeStart: String,
-        timeStop: String, userId: Int
+        id: Int,
+        title: String,
+        location: String,
+        description: String,
+        date: String,
+        timeStart: String,
+        timeStop: String,
+        userId: Int
     ): MissionsSqlObject {
         return MissionsSqlObject(
             id = id,
@@ -73,11 +87,16 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
         //                      date: String, timeStart: String,
         //                      timeStop: String, userId: Int
         if (mission != null) {
-            val newItem =
-                getNewMissionEntry(
-                    mission.id, mission.title, mission.location, mission.description,
-                    mission.date, mission.timeStart, mission.timeStop, mission.userId
-                )
+            val newItem = getNewMissionEntry(
+                mission.id,
+                mission.title,
+                mission.location,
+                mission.description,
+                mission.date,
+                mission.timeStart,
+                mission.timeStop,
+                mission.userId
+            )
             insertMission(newItem)
         }
     }
@@ -113,8 +132,7 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
 class MissionsViewModelFactory(private val missionsDao: MissionsDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MissionsViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return MissionsViewModel(missionsDao) as T
+            @Suppress("UNCHECKED_CAST") return MissionsViewModel(missionsDao) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

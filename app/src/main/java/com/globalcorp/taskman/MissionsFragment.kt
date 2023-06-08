@@ -1,6 +1,11 @@
 package com.globalcorp.taskman
 
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -19,21 +24,21 @@ class MissionsFragment : Fragment() {
     private var _binding: FragmentMissionsBinding? = null
     private val binding get() = _binding!!
 
-    private var missionAdapter: MissionAdapter? = null
-    private var layoutManager: LinearLayoutManager? = null
-
     private val viewModel: MissionsViewModel by activityViewModels {
         MissionsViewModelFactory(
-            (activity?.application as MissionsApplication).database
-                .missionsDao()
+            (activity?.application as MissionsApplication).database.missionsDao()
 
         )
     }
+    private var connectivityManager: ConnectivityManager? = null
+    private var networkCallback: ConnectivityManager.NetworkCallback? = null
+
+    private var missionAdapter: MissionAdapter? = null
+    private var layoutManager: LinearLayoutManager? = null
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentMissionsBinding.inflate(inflater, container, false)
@@ -42,17 +47,15 @@ class MissionsFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.xmlViewModel = viewModel
 
-         layoutManager= LinearLayoutManager(requireContext(),
-             LinearLayoutManager.VERTICAL, false)
+        networkObserveSetup(requireContext())
 
+        layoutManager = LinearLayoutManager(
+            requireContext(), LinearLayoutManager.VERTICAL, false
+        )
         binding.recyclerViewMissions.layoutManager = layoutManager
 
         missionAdapter = MissionAdapter()
         binding.recyclerViewMissions.adapter = missionAdapter
-
-        /*viewModel.allMissions.observe(viewLifecycleOwner) {
-            it?.let { missionAdapter!!.submitList(it) }
-        }*/
 
         lifecycle.coroutineScope.launch {
             viewModel.allMissions().collect() {
@@ -83,12 +86,52 @@ class MissionsFragment : Fragment() {
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupMenu()
+    private fun networkObserveSetup(context: Context) {
+        connectivityManager =
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        // NetworkCallBack receive network status changes
+        networkCallback = object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                println("Its on")
+                viewModel.refresh()
+            }
+
+            override fun onLost(network: Network) {
+                println("Its off")
+                viewModel.refresh()
+            }
+        }
+        NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
+        /*
+        build a NetworkRequest with the NET_CAPABILITY_INTERNET capability,
+        indicating that we want to be notified for networks that have internet access.
+        Then, we call registerNetworkCallback() on the ConnectivityManager,
+        passing the networkRequest and networkCallback as parameters.
+         */
+        /*val networkRequest =
+            NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .build()*/
+
+        // Register the NetworkCallback with the ConnectivityManager:
+        /*connectivityManager!!.registerNetworkCallback(
+            networkRequest,
+            networkCallback as ConnectivityManager.NetworkCallback
+        )*/
+
+        //connectivityManager!!.registerNetworkCallback(networkRequest, networkCallback)
+
+        // Cleanup the connectivity manager
+        //connectivityManager.unregisterNetworkCallback(networkCallback)
+
     }
 
-    private fun setupMenu() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        menuSetup()
+    }
+
+    private fun menuSetup() {
         (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
 
 
@@ -116,8 +159,9 @@ class MissionsFragment : Fragment() {
                         viewModel.deleteAll()
                     }
                     R.id.menu_dropdown_3 -> {
-                        layoutManager= LinearLayoutManager(requireContext(),
-                            LinearLayoutManager.HORIZONTAL, false)
+                        layoutManager = LinearLayoutManager(
+                            requireContext(), LinearLayoutManager.HORIZONTAL, false
+                        )
                         binding.recyclerViewMissions.layoutManager = layoutManager
                     }
 
@@ -126,6 +170,32 @@ class MissionsFragment : Fragment() {
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
+
+    override fun onStart() {
+        super.onStart()
+        registerNetworkCallback()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterNetworkCallback()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        networkCallback = null
+        connectivityManager = null
+    }
+
+    private fun registerNetworkCallback() {
+        networkCallback?.let { connectivityManager?.registerDefaultNetworkCallback(it) }
+    }
+
+    private fun unregisterNetworkCallback() {
+        networkCallback?.let { connectivityManager?.unregisterNetworkCallback(it) }
+    }
+
+
 }
 
 /*val mainActivity = activity as MainActivity
