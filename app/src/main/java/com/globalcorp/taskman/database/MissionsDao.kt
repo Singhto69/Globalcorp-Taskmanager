@@ -15,7 +15,9 @@ interface MissionsDao {
     @Delete
     suspend fun delete(missionsObject: MissionsSqlObject)
 
-
+    /* Remember Dao functions that have a suspend modifier must not
+     return a deferred/async type (kotlinx.coroutines.flow.Flow).
+     */
     @Query("SELECT * FROM item ORDER BY id ASC")
     fun getAll(): Flow<List<MissionsSqlObject>>
     @Query("SELECT * from item WHERE id = :id")
@@ -28,7 +30,7 @@ interface MissionsDao {
     fun deleteMissionById(missionId : Int)
 
     @Query("DELETE FROM item")
-    fun wipe()
+    suspend fun wipe()
 
 
 }

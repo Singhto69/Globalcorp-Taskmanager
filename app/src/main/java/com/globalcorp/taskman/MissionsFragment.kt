@@ -1,7 +1,6 @@
 package com.globalcorp.taskman
 
 
-
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -16,12 +15,12 @@ import com.globalcorp.taskman.databinding.FragmentMissionsBinding
 import kotlinx.coroutines.launch
 
 
-
 class MissionsFragment : Fragment() {
     private var _binding: FragmentMissionsBinding? = null
     private val binding get() = _binding!!
 
     private var missionAdapter: MissionAdapter? = null
+    private var layoutManager: LinearLayoutManager? = null
 
     private val viewModel: MissionsViewModel by activityViewModels {
         MissionsViewModelFactory(
@@ -30,6 +29,7 @@ class MissionsFragment : Fragment() {
 
         )
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +42,10 @@ class MissionsFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.xmlViewModel = viewModel
 
+         layoutManager= LinearLayoutManager(requireContext(),
+             LinearLayoutManager.VERTICAL, false)
+
+        binding.recyclerViewMissions.layoutManager = layoutManager
 
         missionAdapter = MissionAdapter()
         binding.recyclerViewMissions.adapter = missionAdapter
@@ -94,7 +98,8 @@ class MissionsFragment : Fragment() {
                 menuItem1.title = "Refresh"
                 val menuItem2 = menu.findItem(R.id.menu_dropdown_2)
                 menuItem2.title = "Wipe"
-
+                val menuItem3 = menu.findItem(R.id.menu_dropdown_3)
+                menuItem3.title = "Horizontal"
             }
 
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -108,10 +113,14 @@ class MissionsFragment : Fragment() {
                         viewModel.refresh()
                     }
                     R.id.menu_dropdown_2 -> {
-
                         viewModel.deleteAll()
-
                     }
+                    R.id.menu_dropdown_3 -> {
+                        layoutManager= LinearLayoutManager(requireContext(),
+                            LinearLayoutManager.HORIZONTAL, false)
+                        binding.recyclerViewMissions.layoutManager = layoutManager
+                    }
+
                 }
                 return true
             }
