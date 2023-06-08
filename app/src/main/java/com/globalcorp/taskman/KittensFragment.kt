@@ -28,7 +28,7 @@ class KittensFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.xmlViewModel = viewModel
 
-        kittensAdapter = KittensAdapter()
+        kittensAdapter = KittensAdapter(viewModel)
         binding.kittensRecyclerview.adapter = kittensAdapter
 
         viewModel.images.observe(viewLifecycleOwner) {
@@ -48,6 +48,7 @@ class KittensFragment : Fragment() {
                 if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0) {
                     // Call your function here when scrolled to the bottom
                     viewModel.refresh()
+                    viewModel.meow(requireContext())
                 }
             }
         })
