@@ -101,8 +101,9 @@ class MissionsFragment : Fragment() {
                 println("Its off")
                 viewModel.refresh()
             }
+
         }
-        NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
+
         /*
         build a NetworkRequest with the NET_CAPABILITY_INTERNET capability,
         indicating that we want to be notified for networks that have internet access.
@@ -183,8 +184,10 @@ class MissionsFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        unregisterNetworkCallback()
         networkCallback = null
         connectivityManager = null
+
     }
 
     private fun registerNetworkCallback() {
