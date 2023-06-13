@@ -5,22 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.globalcorp.taskman.databinding.FragmentStartBinding
 import androidx.navigation.fragment.findNavController
-import com.globalcorp.taskman.utils.ImageLoader
+import com.google.firebase.auth.FirebaseAuth
 
 
 class StartFragment : Fragment() {
     private var _binding: FragmentStartBinding? = null
     private val binding get() = _binding!!
+    private lateinit var auth: FirebaseAuth
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +22,11 @@ class StartFragment : Fragment() {
     ): View? {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
+        auth = FirebaseAuth.getInstance()
+        // user = auth.currentUser
+
         binding.startToMissionButton.setOnClickListener {
+            //Firebase.analytics.logEvent("missions_button_clicked", null)
             findNavController().navigate(R.id.action_startFragment_to_missionsFragment)
         }
 

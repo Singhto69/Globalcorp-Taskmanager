@@ -1,7 +1,10 @@
 Todo
 --------------
 1. API LOGIN LOGOUT Firebase or Auth0!! - Link to my api <--- uniqye 64/32 bit string for user identification in db users
+
 2.SQL POST,JOIN
+
+2.5 Available Missions , taken missions
 
 3. Find a good UI design and then implement it
 
