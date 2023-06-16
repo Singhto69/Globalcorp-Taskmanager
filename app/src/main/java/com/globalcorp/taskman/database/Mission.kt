@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "item")
-data class MissionsSqlObject(
+data class Mission(
     /*@PrimaryKey(autoGenerate = true)
     val localId: Int = 0,*/
     @PrimaryKey

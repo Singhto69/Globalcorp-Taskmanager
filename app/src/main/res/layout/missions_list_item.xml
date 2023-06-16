@@ -12,7 +12,7 @@
 
         <variable
             name="mission"
-            type="com.globalcorp.taskman.database.MissionsSqlObject" />
+            type="com.globalcorp.taskman.models.Mission" />
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -58,7 +58,7 @@ class MissionsFragment : Fragment() {
         binding.recyclerViewMissions.adapter = missionAdapter
 
         lifecycle.coroutineScope.launch {
-            viewModel.allMissions().collect() {
+            viewModel.allMissions.observe(viewLifecycleOwner) {
                 missionAdapter!!.submitList(it)
             }
         }
@@ -157,13 +157,10 @@ class MissionsFragment : Fragment() {
                         viewModel.refresh()
                     }
                     R.id.menu_dropdown_2 -> {
-                        viewModel.deleteAll()
+
                     }
                     R.id.menu_dropdown_3 -> {
-                        layoutManager = LinearLayoutManager(
-                            requireContext(), LinearLayoutManager.HORIZONTAL, false
-                        )
-                        binding.recyclerViewMissions.layoutManager = layoutManager
+
                     }
 
                 }

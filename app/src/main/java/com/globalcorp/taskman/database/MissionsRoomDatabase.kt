@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [MissionsSqlObject::class], version = 1, exportSchema = false)
+@Database(entities = [Mission::class], version = 1, exportSchema = false)
 abstract class MissionsRoomDatabase : RoomDatabase() {
 
     abstract fun missionsDao(): MissionsDao
