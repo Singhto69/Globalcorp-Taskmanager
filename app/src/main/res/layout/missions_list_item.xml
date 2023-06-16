@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginTop="2dp"
-            android:text="@{mission.date}"
+            android:text="I used to be date"
             app:layout_constraintStart_toEndOf="@id/mission_list_item_timestop_textview"
             app:layout_constraintTop_toBottomOf="@id/mission_list_item_title_textview"
 

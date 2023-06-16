@@ -23,7 +23,7 @@ class StartFragment : Fragment() {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
         auth = FirebaseAuth.getInstance()
-        // user = auth.currentUser
+        //var user = auth.currentUser
 
         binding.startToMissionButton.setOnClickListener {
             //Firebase.analytics.logEvent("missions_button_clicked", null)

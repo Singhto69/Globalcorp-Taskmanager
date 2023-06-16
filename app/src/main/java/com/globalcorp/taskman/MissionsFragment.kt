@@ -63,7 +63,7 @@ class MissionsFragment : Fragment() {
             }
         }
 
-        binding.recyclerViewMissions.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        /*binding.recyclerViewMissions.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
@@ -78,7 +78,7 @@ class MissionsFragment : Fragment() {
                     viewModel.refresh()
                 }
             }
-        })
+        })*/
 
 
         return binding.root
@@ -93,12 +93,12 @@ class MissionsFragment : Fragment() {
         // NetworkCallBack receive network status changes
         networkCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
-                println("Its on")
+                println("Connection")
                 viewModel.refresh()
             }
 
             override fun onLost(network: Network) {
-                println("Its off")
+                println("Lost connection")
                 viewModel.refresh()
             }
 

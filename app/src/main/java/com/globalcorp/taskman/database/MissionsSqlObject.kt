@@ -6,8 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "item")
 data class MissionsSqlObject(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    /*@PrimaryKey(autoGenerate = true)
+    val localId: Int = 0,*/
+    @PrimaryKey
+    val id: String,
     @ColumnInfo(name = "title")
     val title: String,
     @ColumnInfo(name = "location")
@@ -21,7 +23,7 @@ data class MissionsSqlObject(
     @ColumnInfo(name = "timeStop")
     val timeStop: String,
     @ColumnInfo(name = "userId")
-    val userId: Int
+    val userId: String
 )
 
 

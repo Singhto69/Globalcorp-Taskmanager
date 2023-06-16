@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
@@ -48,13 +48,18 @@ class LoginFragment : Fragment() {
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory(auth))
             .get(LoginViewModel::class.java)
 
-        val usernameEditText = binding.usernameInput
-        val passwordEditText = binding.passwordInput
-        val loginButton = binding.loginButton
+        val usernameEditText = binding.loginUsernameInput
+        val passwordEditText = binding.loginPasswordInput
+        val loginButton = binding.loginLoginButton
+        val registerButton = binding.loginRegisterButton
         val loadingProgressBar = binding.loading
 
+        registerButton.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
         loginButton.setOnClickListener {
-            loadingProgressBar.visibility = View.VISIBLE
+            toggleProgressBar(loadingProgressBar)
             auth.signInWithEmailAndPassword(
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
@@ -76,14 +81,21 @@ class LoginFragment : Fragment() {
                 if (!task.isSuccessful) {
 
                 }
+                toggleProgressBar(loadingProgressBar)
 
             }
 
-            /*loginViewModel.login(
-                usernameEditText.text.toString(),
-                passwordEditText.text.toString()
-                auth.signOut()
-            )*/
+
+            //auth.signOut()
+
+        }
+    }
+
+    fun toggleProgressBar(loadingBar: ProgressBar) {
+        if (loadingBar.visibility == View.VISIBLE) {
+            loadingBar.visibility = View.INVISIBLE
+        } else {
+            loadingBar.visibility = View.VISIBLE
         }
     }
 
