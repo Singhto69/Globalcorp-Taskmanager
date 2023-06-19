@@ -4,18 +4,16 @@ package com.globalcorp.taskman
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
-import android.net.NetworkCapabilities
-import android.net.NetworkRequest
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.globalcorp.taskman.databinding.FragmentMissionsBinding
 import kotlinx.coroutines.launch
 
@@ -36,26 +34,39 @@ class MissionsFragment : Fragment() {
     private var missionAdapter: MissionAdapter? = null
     private var layoutManager: LinearLayoutManager? = null
 
+    var dpScreenWidth: Float? = null
+    var dpScreenHeight: Float? = null
+    var dpMissionsButtonWidth: Float? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        dpScreenWidth = resources.displayMetrics.run { widthPixels / density }
+        dpScreenHeight = resources.displayMetrics.run { heightPixels / density }
+        dpMissionsButtonWidth = resources.displayMetrics.run { (widthPixels / density) / 3 }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentMissionsBinding.inflate(inflater, container, false)
+
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
+
         // Giving the binding access to the OverviewViewModel
-        binding.xmlViewModel = viewModel
+        binding.xmlMainViewModel = viewModel
 
         networkObserveSetup(requireContext())
 
         layoutManager = LinearLayoutManager(
             requireContext(), LinearLayoutManager.VERTICAL, false
         )
-        binding.recyclerViewMissions.layoutManager = layoutManager
+
+        binding.missionsUiRcview.recyclerViewMissions.layoutManager = layoutManager
 
         missionAdapter = MissionAdapter()
-        binding.recyclerViewMissions.adapter = missionAdapter
+        binding.missionsUiRcview.recyclerViewMissions.adapter = missionAdapter
 
         lifecycle.coroutineScope.launch {
             viewModel.allMissions.observe(viewLifecycleOwner) {

@@ -4,12 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="xmlViewModel"
-            type="com.globalcorp.taskman.MissionsViewModel" />
-
-
         <variable
             name="mission"
             type="com.globalcorp.taskman.models.Mission" />

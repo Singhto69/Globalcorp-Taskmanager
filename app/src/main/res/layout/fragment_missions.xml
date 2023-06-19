@@ -6,25 +6,38 @@
     <data>
 
         <variable
-            name="xmlViewModel"
+            name="xmlMainViewModel"
             type="com.globalcorp.taskman.MissionsViewModel" />
 
     </data>
 
-    <FrameLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#EDEDED"
+        android:orientation="horizontal"
         tools:context=".MainActivity">
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_missions"
+        <include
+            android:id="@+id/missions_ui_rcview"
+            layout="@layout/missions_rcview_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            app:layoutManager="LinearLayoutManager"
-             />
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            app:xmlViewModel="@{xmlMainViewModel}" />
+
+        <include
+            android:id="@+id/missions_ui_buttonsBar"
+            layout="@layout/missions_buttonsbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:xmlViewModel="@{xmlMainViewModel}" />
 
 
-    </FrameLayout>
+    </RelativeLayout>
+
+
 </layout>

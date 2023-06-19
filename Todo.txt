@@ -1,17 +1,24 @@
 Todo
 --------------
-1. API LOGIN LOGOUT Firebase or Auth0!! - Link to my api <--- uniqye 64/32 bit string for user identification in db users
+1. Recyclerview choose free or busy jobs
 
-2.SQL POST,JOIN
+2. Option to take free mission ( NOSQL update? )
 
-2.5 Available Missions , taken missions
+3. click on recyclerview item -> navigate to own fragment for the mission
 
-3. Find a good UI design and then implement it
+4. Find a good UI design and then implement it , improve recyclerview
 
-4.Leaderbord <-- Nr1 gets a bonus
+5. Admin page , create jobs , promp jobs to users
 
-5.Share missions between users
+?.Leaderbord <-- Nr1 gets a bonus
 
-Misc
+?.Share missions between users
+
+Maybe later
 --------------
 Flutter?
+
+
+
+UI Idea quest like , question mark accepted finished.
+spotify like button bar
