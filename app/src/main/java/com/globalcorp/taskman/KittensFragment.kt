@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.globalcorp.taskman.databinding.FragmentKittensBinding
-import com.globalcorp.taskman.databinding.FragmentMissionsBinding
 
 class KittensFragment : Fragment() {
     private val viewModel: KittensViewModel by viewModels()

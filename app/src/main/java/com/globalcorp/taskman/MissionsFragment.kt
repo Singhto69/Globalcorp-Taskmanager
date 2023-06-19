@@ -5,7 +5,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.*
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -115,27 +114,6 @@ class MissionsFragment : Fragment() {
 
         }
 
-        /*
-        build a NetworkRequest with the NET_CAPABILITY_INTERNET capability,
-        indicating that we want to be notified for networks that have internet access.
-        Then, we call registerNetworkCallback() on the ConnectivityManager,
-        passing the networkRequest and networkCallback as parameters.
-         */
-        /*val networkRequest =
-            NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                .build()*/
-
-        // Register the NetworkCallback with the ConnectivityManager:
-        /*connectivityManager!!.registerNetworkCallback(
-            networkRequest,
-            networkCallback as ConnectivityManager.NetworkCallback
-        )*/
-
-        //connectivityManager!!.registerNetworkCallback(networkRequest, networkCallback)
-
-        // Cleanup the connectivity manager
-        //connectivityManager.unregisterNetworkCallback(networkCallback)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -209,13 +187,27 @@ class MissionsFragment : Fragment() {
 
 }
 
-/*val mainActivity = activity as MainActivity
-mainActivity.supportActionBar?.apply{
-    title = "My Fragment"
-    setBackgroundDrawable(ColorDrawable(Color.RED))*/
 
+/*
+build a NetworkRequest with the NET_CAPABILITY_INTERNET capability,
+indicating that we want to be notified for networks that have internet access.
+Then, we call registerNetworkCallback() on the ConnectivityManager,
+passing the networkRequest and networkCallback as parameters.
+ */
+/*val networkRequest =
+    NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        .build()*/
 
-// Customize other properties like background color, menu items, etc.
+// Register the NetworkCallback with the ConnectivityManager:
+/*connectivityManager!!.registerNetworkCallback(
+    networkRequest,
+    networkCallback as ConnectivityManager.NetworkCallback
+)*/
+
+//connectivityManager!!.registerNetworkCallback(networkRequest, networkCallback)
+
+// Cleanup the connectivity manager
+//connectivityManager.unregisterNetworkCallback(networkCallback)
 
 
 

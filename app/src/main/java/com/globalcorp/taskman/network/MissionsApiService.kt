@@ -8,7 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
 
-private const val BASE_URL =  "http://92.32.46.83:80/"
+private const val BASE_URL = "http://92.32.46.83:80/"
 
 private const val api_key = ""
 

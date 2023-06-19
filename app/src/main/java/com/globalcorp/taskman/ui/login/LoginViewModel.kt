@@ -19,8 +19,6 @@ import com.google.firebase.auth.AuthResult
 
 class LoginViewModel(private val auth: FirebaseAuth) : ViewModel() {
 
-    var success: State.Success = State.Success("Hi")
-
 
 }
 

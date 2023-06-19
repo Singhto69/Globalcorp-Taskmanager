@@ -44,9 +44,7 @@ class MissionAdapter :
         }
     }
 
-    /**
-     * Create new [RecyclerView] item views (invoked by the layout manager)
-     */
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -56,9 +54,7 @@ class MissionAdapter :
         )
     }
 
-    /**
-     * Replaces the contents of a view (invoked by the layout manager)
-     */
+
     override fun onBindViewHolder(holder: MissionsViewHolder, position: Int) {
         val mission = getItem(position)
         val thisContext = holder.itemView.context
