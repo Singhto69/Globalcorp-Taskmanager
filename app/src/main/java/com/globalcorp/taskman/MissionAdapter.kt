@@ -1,9 +1,8 @@
 package com.globalcorp.taskman
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -62,14 +61,30 @@ class MissionAdapter :
         holder.bind(mission)
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("geo:0,0?q=${mission.location}")
-            /*if (intent.resolveActivity(thisContext.packageManager) != null) {
-                thisContext.startActivity(intent)
-            } else {
-                Toast.makeText(thisContext, "Google Maps is not installed", Toast.LENGTH_SHORT).show()
-            }*/
-            thisContext.startActivity(intent)
+            holder.itemView.setOnClickListener {
+                val fragment = SelectedMissionFragment.newInstance(mission)
+
+                val fragmentManager =
+                    (holder.itemView.context as AppCompatActivity).supportFragmentManager
+                fragmentManager.beginTransaction()
+                    .replace(R.id.nav_host_fragment, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+
+
+            /*holder.itemView.setOnClickListener {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse("geo:0,0?q=${mission.location}")
+                    /*if (intent.resolveActivity(thisContext.packageManager) != null) {
+                        thisContext.startActivity(intent)
+                    } else {
+                        Toast.makeText(thisContext, "Google Maps is not installed", Toast.LENGTH_SHORT).show()
+                    }*/
+                    thisContext.startActivity(intent)
+                }*/
+
+
         }
     }
 }

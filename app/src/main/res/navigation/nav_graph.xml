@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_missionsFragment_to_startFragment"
             app:destination="@id/startFragment" />
+        <action
+            android:id="@+id/action_missionsFragment_to_selectedMissionFragment"
+            app:destination="@id/selectedMissionFragment" />
     </fragment>
     <fragment
         android:id="@+id/startFragment"
@@ -25,6 +28,9 @@
         <action
             android:id="@+id/action_startFragment_to_kittensFragment"
             app:destination="@id/kittensFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
     </fragment>
     <fragment
         android:id="@+id/kittensFragment"
@@ -55,5 +61,47 @@
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.globalcorp.taskman.AdminFragment"
+        android:label="fragment_admin"
+        tools:layout="@layout/fragment_admin" >
+        <action
+            android:id="@+id/action_adminFragment_to_startFragment"
+            app:destination="@id/startFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_createNewMissionFragment"
+            app:destination="@id/createNewMissionFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_assignMissionToUserFragment"
+            app:destination="@id/assignMissionToUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createNewMissionFragment"
+        android:name="com.globalcorp.taskman.CreateNewMissionFragment"
+        android:label="fragment_create_new_mission"
+        tools:layout="@layout/fragment_create_new_mission" >
+        <action
+            android:id="@+id/action_createNewMissionFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/assignMissionToUserFragment"
+        android:name="com.globalcorp.taskman.AssignMissionToUserFragment"
+        android:label="fragment_assign_mission_to_user"
+        tools:layout="@layout/fragment_assign_mission_to_user" >
+        <action
+            android:id="@+id/action_assignMissionToUserFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectedMissionFragment"
+        android:name="com.globalcorp.taskman.SelectedMissionFragment"
+        android:label="fragment_selected_mission"
+        tools:layout="@layout/fragment_selected_mission" >
+        <argument
+            android:name="mission"
+            app:argType="com.globalcorp.taskman.models.Mission" />
     </fragment>
 </navigation>

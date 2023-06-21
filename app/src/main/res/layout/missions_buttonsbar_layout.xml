@@ -26,7 +26,8 @@
             android:drawableTop="@drawable/ic_free_mission"
             android:text="@string/missions_buttonsBar_option1_button_text"
             android:textColor="#FFFFFFFF"
-            android:tint="@color/missions_free_icon" />
+            android:tint="@color/missions_free_icon"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/missions_buttonsBar_option2_button"
@@ -37,7 +38,8 @@
             android:drawableTop="@drawable/ic_accepted_mission"
             android:text="@string/missions_buttonsBar_option2_button_text"
             android:textColor="#FFFFFFFF"
-            android:tint="@color/missions_accepted_icon" />
+            android:tint="@color/missions_accepted_icon"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/missions_buttonsBar_option3_button"
@@ -48,7 +50,8 @@
             android:drawableTop="@drawable/ic_finished_mission"
             android:text="@string/missions_buttonsBar_option3_button_text"
             android:textColor="#FFFFFFFF"
-            android:tint="@color/missions_finished_icon" />
+            android:tint="@color/missions_finished_icon"
+            android:textAllCaps="false"/>
 
 
     </LinearLayout>
