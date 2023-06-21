@@ -10,11 +10,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.*
 
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.firestore.ktx.memoryCacheSettings
 import com.google.firebase.firestore.ktx.persistentCacheSettings
 import java.util.*
-
 
 class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
     private val _status = MutableLiveData<String>()
@@ -24,6 +25,10 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
     val allMissions: LiveData<List<Mission>> = _allMissions
 
     private val dataBase: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+    var missionsTabState: MissionsTabState = MissionsTabState.AVAILABLE
+
 
     init {
         val settings = firestoreSettings {
@@ -40,67 +45,75 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
         databaseSync()
     }
 
-    fun displayAssignedMissions() {
-
-    }
-
-    fun displayFreeMissions() {
-
-    }
-
     private fun databaseSync() {
         val dateFormat = getDateInstance()
         val calendar: Calendar = Calendar.getInstance()
         val listResult = mutableListOf<Mission>()
 
-        viewModelScope.launch {
-            try {
-                dataBase.collection("missions")
-                    .whereEqualTo("status", 0)
-                    .get()
-                    .addOnSuccessListener { querySnapshot ->
-                        if (querySnapshot != null) {
-                            for (document in querySnapshot) {
-                                listResult.add(
-                                    Mission(
-                                        id = document.id,
-                                        title = document.get("title") as String,
-                                        location = document.get("address") as String,
-                                        description = document.get("description") as String,
-                                        date = dateFormat
-                                            .format(
-                                                (document.get("timestart") as Timestamp)
-                                                    .toDate()
-                                            ) as String,
-                                        timeStart = dateFormat
-                                            .format(
-                                                (document.get("timestart") as Timestamp)
-                                                    .toDate()
-                                            ) as String,
-                                        timeStop = dateFormat
-                                            .format(
-                                                (document.get("timestop") as Timestamp)
-                                                    .toDate()
-                                            ) as String,
-                                        userId = document.get("users") as String?
-                                    )
-                                )
-                            }
-                        }
-                        _allMissions.value = listResult
-                    }
-                    .addOnFailureListener { exception ->
-                        Log.d(TAG, "Error getting documents: ", exception)
-                    }
-
-            } catch (e: Exception) {
-                Log.e(TAG, "Kaputain the ship has run ashore")
-            }
-
+        val status: Int = when (missionsTabState) {
+            MissionsTabState.AVAILABLE -> 0
+            MissionsTabState.ACCEPTED -> 1
+            MissionsTabState.FINISHED -> 2
         }
+
+
+        val collectionRef = dataBase.collection("missions")
+        val query = auth.currentUser?.let {
+            collectionRef.whereArrayContains("users", auth.currentUser!!.uid)
+                .whereEqualTo("status", status)
+        }
+
+        query!!.get().addOnSuccessListener { querySnapshot ->
+            if (querySnapshot != null) {
+                for (document in querySnapshot) {
+                    listResult.add(
+                        Mission(
+                            id = document.id,
+                            title = document.get("title") as String,
+                            location = document.get("address") as String,
+                            description = document.get("description") as String,
+                            date = dateFormat.format(
+                                (document.get("timestart") as Timestamp).toDate()
+                            ) as String,
+                            timeStart = dateFormat.format(
+                                (document.get("timestart") as Timestamp).toDate()
+                            ) as String,
+                            timeStop = dateFormat.format(
+                                (document.get("timestop") as Timestamp).toDate()
+                            ) as String,
+                            //userId = document.get("users") as String? <-- Array now
+                            userId = auth.currentUser!!.uid
+                        )
+                    )
+                }
+            }
+            _allMissions.value = listResult
+        }.addOnFailureListener { exception ->
+            Log.d(TAG, "Error getting documents: ", exception)
+        }
+
+
     }
 
+
+    fun setStateAvailable() {
+        missionsTabState = MissionsTabState.AVAILABLE
+        refresh()
+    }
+
+    fun setStateAccepted() {
+        missionsTabState = MissionsTabState.ACCEPTED
+        refresh()
+    }
+
+    fun setStateFinished() {
+        missionsTabState = MissionsTabState.FINISHED
+        refresh()
+    }
+
+
 }
+
 
 class MissionsViewModelFactory(private val missionsDao: MissionsDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -111,3 +124,9 @@ class MissionsViewModelFactory(private val missionsDao: MissionsDao) : ViewModel
     }
 
 }
+
+enum class MissionsTabState {
+    AVAILABLE, ACCEPTED, FINISHED
+}
+
+//dataBase.collection("missions").whereEqualTo("status", 0).get()

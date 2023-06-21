@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.globalcorp.taskman.databinding.FragmentMissionsBinding
 import kotlinx.coroutines.launch
@@ -71,6 +72,18 @@ class MissionsFragment : Fragment() {
             viewModel.allMissions.observe(viewLifecycleOwner) {
                 missionAdapter!!.submitList(it)
             }
+        }
+
+        binding.missionsUiButtonsBar.missionsButtonsBarOption1Button.setOnClickListener {
+            viewModel.setStateAvailable()
+        }
+
+        binding.missionsUiButtonsBar.missionsButtonsBarOption2Button.setOnClickListener {
+            viewModel.setStateAccepted()
+        }
+
+        binding.missionsUiButtonsBar.missionsButtonsBarOption3Button.setOnClickListener {
+            viewModel.setStateFinished()
         }
 
         /*binding.recyclerViewMissions.addOnScrollListener(object : RecyclerView.OnScrollListener() {

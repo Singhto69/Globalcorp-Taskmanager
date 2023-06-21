@@ -18,37 +18,38 @@
         tools:context=".MainActivity">
 
         <Button
-            android:id="@+id/missions_rcview_option1_button"
+            android:id="@+id/missions_buttonsBar_option1_button"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableTop="@drawable/ic_free_mission"
+            android:text="@string/missions_buttonsBar_option1_button_text"
+            android:textColor="#FFFFFFFF"
             android:tint="@color/missions_free_icon" />
 
         <Button
-            android:id="@+id/missions_rcview_option2_button"
+            android:id="@+id/missions_buttonsBar_option2_button"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableTop="@drawable/ic_accepted_mission"
+            android:text="@string/missions_buttonsBar_option2_button_text"
+            android:textColor="#FFFFFFFF"
             android:tint="@color/missions_accepted_icon" />
 
         <Button
-            android:id="@+id/missions_rcview_option3_button"
+            android:id="@+id/missions_buttonsBar_option3_button"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableTop="@drawable/ic_finished_mission"
+            android:text="@string/missions_buttonsBar_option3_button_text"
+            android:textColor="#FFFFFFFF"
             android:tint="@color/missions_finished_icon" />
 
 
     </LinearLayout>
 </layout>
-
-
-
-
-
