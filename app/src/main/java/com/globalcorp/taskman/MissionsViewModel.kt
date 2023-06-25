@@ -27,10 +27,14 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
     private val dataBase: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    var missionsTabState: MissionsTabState = MissionsTabState.AVAILABLE
+    private val _missionsTabState: MutableLiveData<MissionsTabState> = MutableLiveData()
+    val missionsTabState: LiveData<MissionsTabState> = _missionsTabState
+
+    //var missionsTabState: MissionsTabState = MissionsTabState.AVAILABLE
 
 
     init {
+        _missionsTabState.value = MissionsTabState.AVAILABLE
         val settings = firestoreSettings {
             // Use memory cache
             setLocalCacheSettings(memoryCacheSettings {})
@@ -50,10 +54,13 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
         val calendar: Calendar = Calendar.getInstance()
         val listResult = mutableListOf<Mission>()
 
-        val status: Int = when (missionsTabState) {
+        val status: Int = when (_missionsTabState.value) {
             MissionsTabState.AVAILABLE -> 0
             MissionsTabState.ACCEPTED -> 1
             MissionsTabState.FINISHED -> 2
+            else -> {
+                return
+            }
         }
 
 
@@ -97,17 +104,17 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
 
 
     fun setStateAvailable() {
-        missionsTabState = MissionsTabState.AVAILABLE
+        _missionsTabState.value = MissionsTabState.AVAILABLE
         refresh()
     }
 
     fun setStateAccepted() {
-        missionsTabState = MissionsTabState.ACCEPTED
+        _missionsTabState.value = MissionsTabState.ACCEPTED
         refresh()
     }
 
     fun setStateFinished() {
-        missionsTabState = MissionsTabState.FINISHED
+        _missionsTabState.value = MissionsTabState.FINISHED
         refresh()
     }
 

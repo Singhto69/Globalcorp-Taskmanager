@@ -10,24 +10,21 @@ import com.globalcorp.taskman.databinding.MissionsListItemBinding
 
 class MissionAdapter :
     ListAdapter<com.globalcorp.taskman.models.Mission, MissionAdapter.MissionsViewHolder>(
-        DiffCallback
+        MissionAdapter
     ) {
 
     class MissionsViewHolder(private var binding: MissionsListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(mission: com.globalcorp.taskman.models.Mission) {
             binding.mission = mission
-            // This is important, because it forces the data binding to execute immediately,
-            // which allows the RecyclerView to make the correct view size measurements
+            /* This is important, because it forces the data binding to execute immediately,
+             which allows the RecyclerView to make the correct view size measurements */
             binding.executePendingBindings()
-
-
         }
     }
 
 
-    companion object DiffCallback :
-        DiffUtil.ItemCallback<com.globalcorp.taskman.models.Mission>() {
+    companion object DiffCallback : DiffUtil.ItemCallback<com.globalcorp.taskman.models.Mission>() {
         override fun areItemsTheSame(
             oldItem: com.globalcorp.taskman.models.Mission,
             newItem: com.globalcorp.taskman.models.Mission
@@ -45,8 +42,7 @@ class MissionAdapter :
 
 
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+        parent: ViewGroup, viewType: Int
     ): MissionsViewHolder {
         return MissionsViewHolder(
             MissionsListItemBinding.inflate(LayoutInflater.from(parent.context))
@@ -60,31 +56,27 @@ class MissionAdapter :
 
         holder.bind(mission)
 
+
         holder.itemView.setOnClickListener {
-            holder.itemView.setOnClickListener {
-                val fragment = SelectedMissionFragment.newInstance(mission)
+            val fragment = SelectedMissionFragment.newInstance(mission)
 
-                val fragmentManager =
-                    (holder.itemView.context as AppCompatActivity).supportFragmentManager
-                fragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment, fragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
-
-
-            /*holder.itemView.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.data = Uri.parse("geo:0,0?q=${mission.location}")
-                    /*if (intent.resolveActivity(thisContext.packageManager) != null) {
-                        thisContext.startActivity(intent)
-                    } else {
-                        Toast.makeText(thisContext, "Google Maps is not installed", Toast.LENGTH_SHORT).show()
-                    }*/
-                    thisContext.startActivity(intent)
-                }*/
-
-
+            val fragmentManager =
+                (holder.itemView.context as AppCompatActivity).supportFragmentManager
+            fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, fragment)
+                .addToBackStack(null).commit()
         }
+
     }
 }
+
+
+/*holder.itemView.setOnClickListener {
+    val intent = Intent(Intent.ACTION_VIEW)
+    intent.data = Uri.parse("geo:0,0?q=${mission.location}")
+    /*if (intent.resolveActivity(thisContext.packageManager) != null) {
+        thisContext.startActivity(intent)
+    } else {
+        Toast.makeText(thisContext, "Google Maps is not installed", Toast.LENGTH_SHORT).show()
+    }*/
+    thisContext.startActivity(intent)
+}*/

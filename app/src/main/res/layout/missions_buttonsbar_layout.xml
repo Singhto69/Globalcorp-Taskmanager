@@ -23,11 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@drawable/ic_free_mission"
+            android:drawableTop="@drawable/ic_free_mission_active"
             android:text="@string/missions_buttonsBar_option1_button_text"
+            android:textAllCaps="false"
             android:textColor="#FFFFFFFF"
-            android:tint="@color/missions_free_icon"
-            android:textAllCaps="false"/>
+            android:tint="@color/missions_free_icon" />
 
         <Button
             android:id="@+id/missions_buttonsBar_option2_button"
@@ -35,11 +35,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@drawable/ic_accepted_mission"
+            android:drawableTop="@drawable/ic_accepted_mission_active"
             android:text="@string/missions_buttonsBar_option2_button_text"
+            android:textAllCaps="false"
             android:textColor="#FFFFFFFF"
-            android:tint="@color/missions_accepted_icon"
-            android:textAllCaps="false"/>
+            android:tint="@color/missions_accepted_icon" />
 
         <Button
             android:id="@+id/missions_buttonsBar_option3_button"
@@ -47,11 +47,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@drawable/ic_finished_mission"
+            android:drawableTop="@drawable/ic_finished_mission_active"
             android:text="@string/missions_buttonsBar_option3_button_text"
+            android:textAllCaps="false"
             android:textColor="#FFFFFFFF"
-            android:tint="@color/missions_finished_icon"
-            android:textAllCaps="false"/>
+            android:tint="@color/missions_finished_icon" />
 
 
     </LinearLayout>

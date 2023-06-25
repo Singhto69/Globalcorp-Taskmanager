@@ -1,6 +1,7 @@
 package com.globalcorp.taskman
 
-import android.content.ClipData
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ class SelectedMissionFragment : Fragment() {
     private var _binding: FragmentSelectedMissionBinding? = null
     private val binding get() = _binding!!
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,13 +25,21 @@ class SelectedMissionFragment : Fragment() {
         binding.mission = mission
 
 
+        binding.selectedMissionGmapsButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("geo:0,0?q=${mission.location}")
+            /*if (intent.resolveActivity(thisContext.packageManager) != null) {
+                thisContext.startActivity(intent)
+            } else {
+                Toast.makeText(thisContext, "Google Maps is not installed", Toast.LENGTH_SHORT).show()
+            }*/
+            this.startActivity(intent)
+        }
+
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
 
     companion object {
         private const val ARG_MISSION = "mission"
@@ -44,4 +54,6 @@ class SelectedMissionFragment : Fragment() {
         }
     }
 
+
 }
+

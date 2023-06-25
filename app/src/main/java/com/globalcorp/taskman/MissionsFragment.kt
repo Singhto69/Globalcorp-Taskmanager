@@ -2,10 +2,12 @@ package com.globalcorp.taskman
 
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Bundle
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -74,6 +76,11 @@ class MissionsFragment : Fragment() {
             }
         }
 
+        viewModel.missionsTabState.observe(viewLifecycleOwner) {
+            updateButtonBar()
+        }
+
+
         binding.missionsUiButtonsBar.missionsButtonsBarOption1Button.setOnClickListener {
             viewModel.setStateAvailable()
         }
@@ -109,29 +116,113 @@ class MissionsFragment : Fragment() {
 
     }
 
-    private fun networkObserveSetup(context: Context) {
-        connectivityManager =
-            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-        // NetworkCallBack receive network status changes
-        networkCallback = object : ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) {
-                println("Connection")
-                viewModel.refresh()
-            }
-
-            override fun onLost(network: Network) {
-                println("Lost connection")
-                viewModel.refresh()
-            }
-
-        }
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         menuSetup()
+    }
+
+    private fun updateButtonBar() {
+        when (viewModel.missionsTabState.value) {
+            MissionsTabState.AVAILABLE -> {
+                binding.missionsUiButtonsBar.missionsButtonsBarOption1Button
+                    .setCompoundDrawablesWithIntrinsicBounds(
+                        null, ContextCompat.getDrawable(
+                            requireContext(), R.drawable.ic_free_mission_active
+                        ), null, null
+                    )
+                binding.missionsUiButtonsBar.missionsButtonsBarOption1Button.setTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.white)
+                    )
+
+                binding.missionsUiButtonsBar.missionsButtonsBarOption2Button
+                    .setCompoundDrawablesWithIntrinsicBounds(
+                        null, ContextCompat.getDrawable(
+                            requireContext(), R.drawable.ic_accepted_mission_inactive
+                        ), null, null
+                    )
+                binding.missionsUiButtonsBar.missionsButtonsBarOption2Button.setTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.light_grey)
+                    )
+
+                binding.missionsUiButtonsBar.missionsButtonsBarOption3Button
+                    .setCompoundDrawablesWithIntrinsicBounds(
+                        null, ContextCompat.getDrawable(
+                            requireContext(), R.drawable.ic_finished_mission_inactive
+                        ), null, null
+                    )
+                binding.missionsUiButtonsBar.missionsButtonsBarOption3Button.setTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.light_grey)
+                    )
+            }
+
+            MissionsTabState.ACCEPTED -> {
+                binding.missionsUiButtonsBar.missionsButtonsBarOption1Button
+                    .setCompoundDrawablesWithIntrinsicBounds(
+                        null, ContextCompat.getDrawable(
+                            requireContext(), R.drawable.ic_free_mission_inactive
+                        ), null, null
+                    )
+                binding.missionsUiButtonsBar.missionsButtonsBarOption1Button.setTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.light_grey)
+                    )
+
+                binding.missionsUiButtonsBar.missionsButtonsBarOption2Button
+                    .setCompoundDrawablesWithIntrinsicBounds(
+                        null, ContextCompat.getDrawable(
+                            requireContext(), R.drawable.ic_accepted_mission_active
+                        ), null, null
+                    )
+                binding.missionsUiButtonsBar.missionsButtonsBarOption2Button.setTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.white)
+                    )
+
+                binding.missionsUiButtonsBar.missionsButtonsBarOption3Button
+                    .setCompoundDrawablesWithIntrinsicBounds(
+                        null, ContextCompat.getDrawable(
+                            requireContext(), R.drawable.ic_finished_mission_inactive
+                        ), null, null
+                    )
+                binding.missionsUiButtonsBar.missionsButtonsBarOption3Button.setTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.light_grey)
+                    )
+            }
+            MissionsTabState.FINISHED -> {
+                binding.missionsUiButtonsBar.missionsButtonsBarOption1Button
+                    .setCompoundDrawablesWithIntrinsicBounds(
+                        null, ContextCompat.getDrawable(
+                            requireContext(), R.drawable.ic_free_mission_inactive
+                        ), null, null
+                    )
+                binding.missionsUiButtonsBar.missionsButtonsBarOption1Button.setTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.light_grey)
+                    )
+
+                binding.missionsUiButtonsBar.missionsButtonsBarOption2Button
+                    .setCompoundDrawablesWithIntrinsicBounds(
+                        null, ContextCompat.getDrawable(
+                            requireContext(), R.drawable.ic_accepted_mission_inactive
+                        ), null, null
+                    )
+                binding.missionsUiButtonsBar.missionsButtonsBarOption2Button.setTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.light_grey)
+                    )
+
+                binding.missionsUiButtonsBar.missionsButtonsBarOption3Button
+                    .setCompoundDrawablesWithIntrinsicBounds(
+                        null, ContextCompat.getDrawable(
+                            requireContext(), R.drawable.ic_finished_mission_active
+                        ), null, null
+                    )
+                binding.missionsUiButtonsBar.missionsButtonsBarOption3Button.setTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.white)
+                    )
+
+            }
+            else -> {}
+        }
+
+
     }
 
     private fun menuSetup() {
@@ -169,6 +260,26 @@ class MissionsFragment : Fragment() {
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun networkObserveSetup(context: Context) {
+        connectivityManager =
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        // NetworkCallBack receive network status changes
+        networkCallback = object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                println("Connection")
+                viewModel.refresh()
+            }
+
+            override fun onLost(network: Network) {
+                println("Lost connection")
+                viewModel.refresh()
+            }
+
+        }
+
     }
 
     override fun onStart() {

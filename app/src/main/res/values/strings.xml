@@ -21,6 +21,9 @@
     <string name="missions_buttonsBar_option2_button_text">Accepted</string>
     <string name="missions_buttonsBar_option3_button_text">Finished</string>
 
+    <string name="selected_missions_google_maps_button">Google maps!</string>
+    <string name="selected_missions_timeReport_button">Time report!</string>
+
     <string name="start_to_admin_button_text">Secret admin page</string>
     <string name="admin_to_createMission_button_text">Create a new mission</string>
     <string name="admin_to_assignMission_button_text">Assign Mission to user</string>
