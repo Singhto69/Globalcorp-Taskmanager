@@ -132,8 +132,8 @@ class MissionsFragment : Fragment() {
                         ), null, null
                     )
                 binding.missionsUiButtonsBar.missionsButtonsBarOption1Button.setTextColor(
-                        ContextCompat.getColor(requireContext(), R.color.white)
-                    )
+                    ContextCompat.getColor(requireContext(), R.color.white)
+                )
 
                 binding.missionsUiButtonsBar.missionsButtonsBarOption2Button
                     .setCompoundDrawablesWithIntrinsicBounds(
@@ -142,8 +142,8 @@ class MissionsFragment : Fragment() {
                         ), null, null
                     )
                 binding.missionsUiButtonsBar.missionsButtonsBarOption2Button.setTextColor(
-                        ContextCompat.getColor(requireContext(), R.color.light_grey)
-                    )
+                    ContextCompat.getColor(requireContext(), R.color.light_grey)
+                )
 
                 binding.missionsUiButtonsBar.missionsButtonsBarOption3Button
                     .setCompoundDrawablesWithIntrinsicBounds(
@@ -152,8 +152,8 @@ class MissionsFragment : Fragment() {
                         ), null, null
                     )
                 binding.missionsUiButtonsBar.missionsButtonsBarOption3Button.setTextColor(
-                        ContextCompat.getColor(requireContext(), R.color.light_grey)
-                    )
+                    ContextCompat.getColor(requireContext(), R.color.light_grey)
+                )
             }
 
             MissionsTabState.ACCEPTED -> {
@@ -164,8 +164,8 @@ class MissionsFragment : Fragment() {
                         ), null, null
                     )
                 binding.missionsUiButtonsBar.missionsButtonsBarOption1Button.setTextColor(
-                        ContextCompat.getColor(requireContext(), R.color.light_grey)
-                    )
+                    ContextCompat.getColor(requireContext(), R.color.light_grey)
+                )
 
                 binding.missionsUiButtonsBar.missionsButtonsBarOption2Button
                     .setCompoundDrawablesWithIntrinsicBounds(
@@ -174,8 +174,8 @@ class MissionsFragment : Fragment() {
                         ), null, null
                     )
                 binding.missionsUiButtonsBar.missionsButtonsBarOption2Button.setTextColor(
-                        ContextCompat.getColor(requireContext(), R.color.white)
-                    )
+                    ContextCompat.getColor(requireContext(), R.color.white)
+                )
 
                 binding.missionsUiButtonsBar.missionsButtonsBarOption3Button
                     .setCompoundDrawablesWithIntrinsicBounds(
@@ -184,8 +184,8 @@ class MissionsFragment : Fragment() {
                         ), null, null
                     )
                 binding.missionsUiButtonsBar.missionsButtonsBarOption3Button.setTextColor(
-                        ContextCompat.getColor(requireContext(), R.color.light_grey)
-                    )
+                    ContextCompat.getColor(requireContext(), R.color.light_grey)
+                )
             }
             MissionsTabState.FINISHED -> {
                 binding.missionsUiButtonsBar.missionsButtonsBarOption1Button
@@ -195,8 +195,8 @@ class MissionsFragment : Fragment() {
                         ), null, null
                     )
                 binding.missionsUiButtonsBar.missionsButtonsBarOption1Button.setTextColor(
-                        ContextCompat.getColor(requireContext(), R.color.light_grey)
-                    )
+                    ContextCompat.getColor(requireContext(), R.color.light_grey)
+                )
 
                 binding.missionsUiButtonsBar.missionsButtonsBarOption2Button
                     .setCompoundDrawablesWithIntrinsicBounds(
@@ -205,8 +205,8 @@ class MissionsFragment : Fragment() {
                         ), null, null
                     )
                 binding.missionsUiButtonsBar.missionsButtonsBarOption2Button.setTextColor(
-                        ContextCompat.getColor(requireContext(), R.color.light_grey)
-                    )
+                    ContextCompat.getColor(requireContext(), R.color.light_grey)
+                )
 
                 binding.missionsUiButtonsBar.missionsButtonsBarOption3Button
                     .setCompoundDrawablesWithIntrinsicBounds(
@@ -215,8 +215,8 @@ class MissionsFragment : Fragment() {
                         ), null, null
                     )
                 binding.missionsUiButtonsBar.missionsButtonsBarOption3Button.setTextColor(
-                        ContextCompat.getColor(requireContext(), R.color.white)
-                    )
+                    ContextCompat.getColor(requireContext(), R.color.white)
+                )
 
             }
             else -> {}

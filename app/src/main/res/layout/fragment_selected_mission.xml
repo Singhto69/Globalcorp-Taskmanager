@@ -13,9 +13,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/selected_missions_cl"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".SelectedMissionFragment">
+
 
         <TextView
             android:id="@+id/selected_mission_title_textview"
@@ -88,9 +90,23 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="40dp"
             android:text="@{mission.description}"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/selected_mission_timestart_textview"
             tools:text="Here is the mission description" />
+
+        <Button
+            android:id="@+id/selected_mission_accept_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="390dp"
+            android:text="@string/selected_missions_accept_button"
+            android:visibility="invisible"
+            app:layout_constraintTop_toBottomOf="@id/selected_mission_description_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
+
 
         <Button
             android:id="@+id/selected_mission_gmaps_button"
@@ -98,10 +114,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
             android:layout_marginTop="448dp"
-
             android:text="@string/selected_missions_google_maps_button"
+            android:visibility="invisible"
+
             app:layout_constraintStart_toEndOf="@id/selected_mission_timeReport_button"
-            app:layout_constraintTop_toBottomOf="@id/selected_mission_description_textview" />
+            app:layout_constraintTop_toBottomOf="@id/selected_mission_description_textview"
+            tools:visibility="visible" />
 
         <Button
             android:id="@+id/selected_mission_timeReport_button"
@@ -110,8 +128,11 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="448dp"
             android:text="@string/selected_missions_timeReport_button"
+            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/selected_mission_description_textview" />
+            app:layout_constraintTop_toBottomOf="@id/selected_mission_description_textview"
+            tools:visibility="visible" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

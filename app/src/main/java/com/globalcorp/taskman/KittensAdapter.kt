@@ -21,11 +21,10 @@ class KittensAdapter(private val viewModel: KittensViewModel) :
 
         fun doSomethingWithViewModel(context: Context) {
             // Access the ViewModel and call the desired function
-            val viewModel = ViewModelProvider(itemView.context as ViewModelStoreOwner)
-                .get(KittensViewModel::class.java)
+            val viewModel =
+                ViewModelProvider(itemView.context as ViewModelStoreOwner).get(KittensViewModel::class.java)
             viewModel.meow(context)
         }
-
 
         fun bind(catObject: CatObject) {
             binding.cat = catObject
@@ -46,8 +45,7 @@ class KittensAdapter(private val viewModel: KittensViewModel) :
     }
 
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+        parent: ViewGroup, viewType: Int
     ): KittensViewHolder {
 
 

@@ -53,10 +53,7 @@ class MissionAdapter :
     override fun onBindViewHolder(holder: MissionsViewHolder, position: Int) {
         val mission = getItem(position)
         val thisContext = holder.itemView.context
-
         holder.bind(mission)
-
-
         holder.itemView.setOnClickListener {
             val fragment = SelectedMissionFragment.newInstance(mission)
 

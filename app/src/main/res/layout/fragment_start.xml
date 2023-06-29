@@ -34,36 +34,46 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
-        <Button
-            android:id="@+id/startToMissionButton"
-            android:layout_width="152dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="50dp"
+        <ImageButton
+            android:id="@+id/start_to_missions_imageButton"
+            android:src="@drawable/missions"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_marginTop="150dp"
+            android:layout_marginStart="25dp"
+            android:scaleType="fitCenter"
             android:text="@string/start_to_mission_button_text"
-            app:layout_constraintBottom_toTopOf="@+id/startToKittensFragmentButton"
+            android:contentDescription="@string/start_to_mission_button_text"
+            app:layout_constraintBottom_toTopOf="@id/start_to_kittens_imageButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/startToKittensFragmentButton"
-            android:layout_width="152dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="72dp"
+        <ImageButton
+            android:id="@+id/start_to_kittens_imageButton"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="148dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/cat"
             android:text="@string/start_to_kittens_button_text"
-            app:layout_constraintStart_toStartOf="@+id/startToMissionButton"
-            app:layout_constraintTop_toBottomOf="@+id/startToMissionButton" />
+            android:contentDescription="@string/start_to_kittens_button_text"
+            app:layout_constraintStart_toStartOf="@id/start_to_missions_imageButton"
+            app:layout_constraintTop_toBottomOf="@id/start_to_missions_imageButton" />
 
-        <Button
-            android:id="@+id/startToAdminFragmentButton"
-            android:layout_width="152dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="216dp"
+        <ImageButton
+            android:id="@+id/start_to_admin_imageButton"
+            android:src="@drawable/cog"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginStart="60dp"
+            android:scaleType="fitCenter"
             android:text="@string/start_to_admin_button_text"
-            app:layout_constraintStart_toStartOf="@+id/startToKittensFragmentButton"
-            app:layout_constraintTop_toBottomOf="@+id/startToKittensFragmentButton" />
+            android:contentDescription="@string/start_to_admin_button_text"
+            app:layout_constraintStart_toEndOf="@id/start_to_kittens_imageButton"
+            app:layout_constraintTop_toTopOf="@id/start_to_kittens_imageButton"
+             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

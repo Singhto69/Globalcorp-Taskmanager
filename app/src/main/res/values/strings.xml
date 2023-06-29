@@ -21,6 +21,7 @@
     <string name="missions_buttonsBar_option2_button_text">Accepted</string>
     <string name="missions_buttonsBar_option3_button_text">Finished</string>
 
+    <string name="selected_missions_accept_button">Accept mission!</string>
     <string name="selected_missions_google_maps_button">Google maps!</string>
     <string name="selected_missions_timeReport_button">Time report!</string>
 

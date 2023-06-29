@@ -95,6 +95,7 @@
             android:id="@+id/action_assignMissionToUserFragment_to_adminFragment"
             app:destination="@id/adminFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/selectedMissionFragment"
         android:name="com.globalcorp.taskman.SelectedMissionFragment"
@@ -103,5 +104,8 @@
         <argument
             android:name="mission"
             app:argType="com.globalcorp.taskman.models.Mission" />
+        <action
+            android:id="@+id/action_selectedMissionFragment_to_missionsFragment"
+            app:destination="@id/missionsFragment" />
     </fragment>
 </navigation>

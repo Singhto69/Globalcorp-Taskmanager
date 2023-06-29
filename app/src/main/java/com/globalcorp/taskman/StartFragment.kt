@@ -20,33 +20,25 @@ class StartFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
-
-
         auth = FirebaseAuth.getInstance()
         //var user = auth.currentUser
 
-        binding.startToMissionButton.setOnClickListener {
+        binding.startToMissionsImageButton.setOnClickListener {
             //Firebase.analytics.logEvent("missions_button_clicked", null)
             findNavController().navigate(R.id.action_startFragment_to_missionsFragment)
         }
 
-        binding.startToKittensFragmentButton.setOnClickListener {
+        binding.startToKittensImageButton.setOnClickListener {
             findNavController().navigate(R.id.action_startFragment_to_kittensFragment)
         }
 
-        binding.startToAdminFragmentButton.setOnClickListener {
+        binding.startToAdminImageButton.setOnClickListener {
             findNavController().navigate(R.id.action_startFragment_to_adminFragment)
         }
 

@@ -16,7 +16,7 @@ class KittensFragment : Fragment() {
     private var _binding: FragmentKittensBinding? = null
     private val binding get() = _binding!!
 
-    private var kittensAdapter : KittensAdapter? = null
+    private var kittensAdapter: KittensAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

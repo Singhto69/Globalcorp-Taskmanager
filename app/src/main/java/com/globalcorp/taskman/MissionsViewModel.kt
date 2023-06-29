@@ -11,7 +11,6 @@ import kotlinx.coroutines.*
 
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.firestore.ktx.memoryCacheSettings
 import com.google.firebase.firestore.ktx.persistentCacheSettings
@@ -89,7 +88,9 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
                                 (document.get("timestop") as Timestamp).toDate()
                             ) as String,
                             //userId = document.get("users") as String? <-- Array now
-                            userId = auth.currentUser!!.uid
+                            userId = auth.currentUser!!.uid,
+                            status = ((document.get("status") as Any) as Long).toInt()
+
                         )
                     )
                 }

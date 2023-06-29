@@ -1,12 +1,7 @@
 Todo
 --------------
-1. Recyclerview choose free or busy jobs
 
-2. Option to take free mission ( NOSQL update? )
-
-3. click on recyclerview item -> navigate to own fragment for the mission
-
-4. Find a good UI design and then implement it , improve recyclerview
+1. Find a good UI design and then implement it , improve recyclerview
 
 5. Admin page , create jobs , promp jobs to users
 

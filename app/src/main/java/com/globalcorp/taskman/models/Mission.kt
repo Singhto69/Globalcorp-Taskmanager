@@ -12,5 +12,6 @@ data class Mission(
     val date: String,
     val timeStart: String,
     val timeStop: String,
-    val userId: String?
+    val userId: String?,
+    val status: Int
 ) : Parcelable
