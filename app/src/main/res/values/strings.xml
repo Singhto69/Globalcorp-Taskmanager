@@ -29,5 +29,10 @@
     <string name="admin_to_createMission_button_text">Create a new mission</string>
     <string name="admin_to_assignMission_button_text">Assign Mission to user</string>
 
+    <string name="create_new_mission_title_input_text">Title</string>
+    <string name="create_new_mission_description_input_text">Description</string>
+    <string name="create_new_mission_location_input_text">Address</string>
+    <string name="create_new_mission_type_input_text">Type</string>
+
 
 </resources>
