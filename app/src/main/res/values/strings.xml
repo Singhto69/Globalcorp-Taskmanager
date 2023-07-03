@@ -34,5 +34,9 @@
     <string name="create_new_mission_location_input_text">Address</string>
     <string name="create_new_mission_type_input_text">Type</string>
 
+    <string name="create_new_mission_timeStart_button_text">Mission begins</string>
+    <string name="create_new_mission_timeStop_button_text">Mission ends</string>
+    <string name="create_new_mission_createMission_button_text">Create Mission</string>
+
 
 </resources>

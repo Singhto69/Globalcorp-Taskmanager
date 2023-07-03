@@ -27,9 +27,9 @@ class MissionsFragment : Fragment() {
     private val viewModel: MissionsViewModel by activityViewModels {
         MissionsViewModelFactory(
             (activity?.application as MissionsApplication).database.missionsDao()
-
         )
     }
+    
     private var connectivityManager: ConnectivityManager? = null
     private var networkCallback: ConnectivityManager.NetworkCallback? = null
 

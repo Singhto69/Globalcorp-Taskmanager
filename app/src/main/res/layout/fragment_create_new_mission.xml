@@ -42,7 +42,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/create_new_mission_description_input_text" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -57,6 +56,24 @@
             android:hint="@string/create_new_mission_type_input_text" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/create_new_mission_timeStart_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_new_mission_timeStart_button_text" />
+
+    <Button
+        android:id="@+id/create_new_mission_timeStop_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_new_mission_timeStop_button_text" />
+
+    <Button
+        android:id="@+id/create_new_mission_createMission_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_new_mission_createMission_button_text" />
 
 
 </LinearLayout>
