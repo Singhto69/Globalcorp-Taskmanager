@@ -10,9 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.Navigation
 import com.globalcorp.taskman.databinding.FragmentSelectedMissionBinding
 import com.globalcorp.taskman.models.Mission
 import com.google.firebase.firestore.SetOptions
@@ -33,6 +32,10 @@ class SelectedMissionFragment : Fragment() {
         val mission = SelectedMissionFragmentArgs.fromBundle(requireArguments()).mission
         binding.mission = mission
         uiButtonsSetup()
+        //val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+
+
+
 
         binding.selectedMissionAcceptButton.setOnClickListener {
             val db = Firebase.firestore
@@ -61,6 +64,17 @@ class SelectedMissionFragment : Fragment() {
                 Toast.makeText(thisContext, "Google Maps is not installed", Toast.LENGTH_SHORT).show()
             }*/
             this.startActivity(intent)
+        }
+
+        binding.selectedMissionTimeReportButton.setOnClickListener {
+            //val whydoyoucrash = R.id.action_selectedMissionFragment_to_missionsFragment
+            //navController.navigate(R.id.action_selectedMissionFragment_to_missionsFragment)
+
+            //val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+            val navController = Navigation.findNavController(requireView())
+            //navController.navigate(R.id.action_selectedMissionFragment_to_missionsFragment)
+
+            navController.popBackStack()
         }
 
         return binding.root
