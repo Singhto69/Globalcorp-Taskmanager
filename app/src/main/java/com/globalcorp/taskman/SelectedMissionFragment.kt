@@ -33,7 +33,10 @@ class SelectedMissionFragment : Fragment() {
         binding.mission = mission
         uiButtonsSetup()
         //val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-
+        /*       val mission: Mission? = arguments?.let {
+            val args = SelectedMissionFragmentArgs.fromBundle(it)
+            args.mission
+        }*/
 
 
 

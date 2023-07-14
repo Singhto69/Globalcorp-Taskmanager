@@ -3,6 +3,7 @@ package com.globalcorp.taskman
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -54,13 +55,19 @@ class MissionAdapter :
         val mission = getItem(position)
         val thisContext = holder.itemView.context
         holder.bind(mission)
-        holder.itemView.setOnClickListener {
+        /*holder.itemView.setOnClickListener {
             val fragment = SelectedMissionFragment.newInstance(mission)
 
             val fragmentManager =
                 (holder.itemView.context as AppCompatActivity).supportFragmentManager
             fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, fragment)
                 .addToBackStack(null).commit()
+        }*/
+
+        holder.itemView.setOnClickListener {
+            val action = MissionsFragmentDirections.actionMissionsFragmentToSelectedMissionFragment(mission)
+            val navController = Navigation.findNavController(holder.itemView)
+            navController.navigate(action)
         }
 
     }
