@@ -72,21 +72,34 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
         query!!.get().addOnSuccessListener { querySnapshot ->
             if (querySnapshot != null) {
                 for (document in querySnapshot) {
+                    val timestartDate = (document.get("timestart") as Timestamp).toDate()
+                    val timestopDate = (document.get("timestop") as Timestamp).toDate()
+
+                    val calendarStart = Calendar.getInstance().apply { time = timestartDate }
+                    val calendarStop = Calendar.getInstance().apply { time = timestopDate }
+
+                    val timestartHour = calendarStart.get(Calendar.HOUR_OF_DAY)
+                    val timestopHour = calendarStop.get(Calendar.HOUR_OF_DAY)
+
+                    val timestartMinute = calendarStart.get(Calendar.MINUTE)
+                    val timestopMinute = calendarStop.get(Calendar.MINUTE)
+
+                    val timeStart = String.format("%02d:%02d", timestartHour, timestartMinute)
+                    val timeStop = String.format("%02d:%02d", timestopHour, timestopMinute)
+
+
                     listResult.add(
                         Mission(
                             id = document.id,
                             title = document.get("title") as String,
+                            type = document.get("type") as String,
                             location = document.get("address") as String,
                             description = document.get("description") as String,
                             date = dateFormat.format(
                                 (document.get("timestart") as Timestamp).toDate()
                             ) as String,
-                            timeStart = dateFormat.format(
-                                (document.get("timestart") as Timestamp).toDate()
-                            ) as String,
-                            timeStop = dateFormat.format(
-                                (document.get("timestop") as Timestamp).toDate()
-                            ) as String,
+                            timeStart = timeStart,
+                            timeStop = timeStop,
                             //userId = document.get("users") as String? <-- Array now
                             userId = auth.currentUser!!.uid,
                             status = ((document.get("status") as Any) as Long).toInt()

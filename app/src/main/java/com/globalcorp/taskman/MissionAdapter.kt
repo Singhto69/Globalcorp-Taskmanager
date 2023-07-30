@@ -1,5 +1,6 @@
 package com.globalcorp.taskman
 
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.globalcorp.taskman.databinding.MissionsListItemBinding
+import android.graphics.Rect
+import android.view.View
 
 class MissionAdapter :
     ListAdapter<com.globalcorp.taskman.models.Mission, MissionAdapter.MissionsViewHolder>(
@@ -70,6 +73,27 @@ class MissionAdapter :
             navController.navigate(action)
         }
 
+    }
+}
+
+
+
+
+class SpacesItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
+    override fun getItemOffsets(
+        outRect: Rect, view: View,
+        parent: RecyclerView, state: RecyclerView.State
+    ) {
+        outRect.left = 0
+        outRect.right = 0
+        outRect.bottom = space
+
+        // Add top margin only for the first item to avoid double space between items
+        if (parent.getChildLayoutPosition(view) == 0) {
+            outRect.top = space
+        } else {
+            outRect.top = 0
+        }
     }
 }
 

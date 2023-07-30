@@ -11,4 +11,6 @@
     <color name="missions_free_icon">#FFFFF916</color>
     <color name="missions_accepted_icon">#FFACFAE8</color>
     <color name="missions_finished_icon">#FF3AFF03</color>
+    <color name="rcview_item_color">#F1D4A9</color>
+
 </resources>

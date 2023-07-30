@@ -14,9 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".StartFragment">
-
-
-        <com.google.android.material.appbar.AppBarLayout
+        <!--<com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,8 +27,7 @@
                 android:background="?attr/colorPrimary"
                 app:titleTextColor="@android:color/white" />
 
-        </com.google.android.material.appbar.AppBarLayout>
-
+        </com.google.android.material.appbar.AppBarLayout>-->
 
         <ImageButton
             android:id="@+id/start_to_missions_imageButton"

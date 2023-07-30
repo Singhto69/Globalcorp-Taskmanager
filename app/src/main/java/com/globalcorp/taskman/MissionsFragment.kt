@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.globalcorp.taskman.databinding.FragmentMissionsBinding
 import kotlinx.coroutines.launch
@@ -70,6 +71,10 @@ class MissionsFragment : Fragment() {
         missionAdapter = MissionAdapter()
         binding.missionsUiRcview.recyclerViewMissions.adapter = missionAdapter
 
+        val dpSize = 8
+        val pixels = (dpSize * resources.displayMetrics.density).toInt()
+        binding.missionsUiRcview.recyclerViewMissions.addItemDecoration(SpacesItemDecoration(pixels))
+
         lifecycle.coroutineScope.launch {
             viewModel.allMissions.observe(viewLifecycleOwner) {
                 missionAdapter!!.submitList(it)
@@ -120,6 +125,7 @@ class MissionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         menuSetup()
+
     }
 
     private fun updateButtonBar() {
@@ -260,6 +266,16 @@ class MissionsFragment : Fragment() {
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                findNavController().navigateUp()
+                true
+            }
+            else -> true
+        }
     }
 
     private fun networkObserveSetup(context: Context) {

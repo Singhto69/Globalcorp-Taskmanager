@@ -57,8 +57,8 @@ class CreateNewMissionFragment : Fragment() {
 
     private fun createMission() {
         val title: String = binding.createNewMissionTitleInput.text.toString()
-        val description: String = binding.createNewMissionLocationInput.text.toString()
-        val location: String = binding.createNewMissionDescriptionInput.text.toString()
+        val description: String = binding.createNewMissionDescriptionInput.text.toString()
+        val location: String = binding.createNewMissionLocationInput.text.toString()
         val type: String = binding.createNewMissionTypeInput.text.toString()
 
         if (title.isNotEmpty() && description.isNotEmpty() && location.isNotEmpty() && type.isNotEmpty() && thisMission.containsKey(
