@@ -14,8 +14,12 @@
       },
       "oauth_client": [
         {
-          "client_id": "462547068807-lt215ifrcim9j7jvetp0ak8krb4apfrf.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "462547068807-nle4p6rapvrg0jgu6h1btlia5hvrl3bk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.globalcorp.taskman",
+            "certificate_hash": "453b3e11cd9da4dcc741cd96ac5e3354146d4f6e"
+          }
         }
       ],
       "api_key": [
@@ -27,7 +31,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "462547068807-lt215ifrcim9j7jvetp0ak8krb4apfrf.apps.googleusercontent.com",
+              "client_id": "462547068807-8nakfa3hr3tsb5jl6rj7la61pukijt0a.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -14,8 +14,7 @@
         android:id="@+id/missions_list_item_cl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/rcview_item_color"
-        >
+        android:background="@color/rcview_item_color">
 
         <TextView
             android:id="@+id/mission_list_item_title_textview"

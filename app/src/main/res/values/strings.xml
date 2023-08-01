@@ -10,13 +10,14 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_register">Register</string>
-    <string name="action_to_register">I want to register</string>
+    <string name="action_to_register">Click me to register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome!"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">Login failed</string>
 
+    <string name="web_client_id">268340079960-oa9l1cid2qo7t8chgj8ns6di3m7tc04l.apps.googleusercontent.com</string>
     <string name="login_title">Task Manager</string>
 
     <string name="missions_buttonsBar_option1_button_text">Available</string>

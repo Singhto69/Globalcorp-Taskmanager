@@ -34,13 +34,6 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
 
     init {
         _missionsTabState.value = MissionsTabState.AVAILABLE
-        val settings = firestoreSettings {
-            // Use memory cache
-            setLocalCacheSettings(memoryCacheSettings {})
-            // Use persistent disk cache (default)
-            setLocalCacheSettings(persistentCacheSettings {})
-        }
-        dataBase.firestoreSettings = settings
         refresh()
     }
 
