@@ -26,6 +26,8 @@ class KittensViewModel() : ViewModel() {
         apiGetCats()
     }
 
+
+
     fun meow(context: Context) {
         viewModelScope.launch {
             val rand: Int = Random.nextInt(0, 9)

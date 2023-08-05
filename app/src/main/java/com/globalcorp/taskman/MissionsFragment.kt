@@ -1,18 +1,26 @@
 package com.globalcorp.taskman
 
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.Network
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -30,22 +38,18 @@ class MissionsFragment : Fragment() {
             (activity?.application as MissionsApplication).database.missionsDao()
         )
     }
-    
+
     private var connectivityManager: ConnectivityManager? = null
     private var networkCallback: ConnectivityManager.NetworkCallback? = null
 
     private var missionAdapter: MissionAdapter? = null
     private var layoutManager: LinearLayoutManager? = null
 
-    var dpScreenWidth: Float? = null
-    var dpScreenHeight: Float? = null
-    var dpMissionsButtonWidth: Float? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dpScreenWidth = resources.displayMetrics.run { widthPixels / density }
-        dpScreenHeight = resources.displayMetrics.run { heightPixels / density }
-        dpMissionsButtonWidth = resources.displayMetrics.run { (widthPixels / density) / 3 }
+
+        val activity = activity as AppCompatActivity
+        activity.supportActionBar?.title = "Missions"
     }
 
     override fun onCreateView(
@@ -98,6 +102,27 @@ class MissionsFragment : Fragment() {
             viewModel.setStateFinished()
         }
 
+        viewModel.latestMission.observe(viewLifecycleOwner, Observer { mission ->
+            // Update your UI here with the new mission count
+            //Toast.makeText(requireContext(), "Ilovepp", Toast.LENGTH_SHORT).show()
+
+            if (mission != null) {
+                sendNewMissionNotification(
+                    "Terraco has sent you a new mission!",
+                    "A new mission titled ${mission.title} is now available "
+                )
+                viewModel.meow(requireContext())
+
+            } else {
+                sendNewMissionNotification(
+                    "Terraco has revoked a mission",
+                    "A mission was revoked from your available missions"
+                )
+            }
+
+
+        })
+
         /*binding.recyclerViewMissions.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -122,11 +147,35 @@ class MissionsFragment : Fragment() {
     }
 
 
+    private fun sendNewMissionNotification(title: String, content: String) {
+        val notificationChannelId = "mission_channel"
+        val notificationManager =
+            requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationBuilder =
+            NotificationCompat.Builder(requireContext(), notificationChannelId)
+                .setSmallIcon(R.drawable.terra_icon)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                notificationChannelId,
+                "Missions",
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            notificationManager.createNotificationChannel(channel)
+        }
+        notificationManager.notify(0, notificationBuilder.build())
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        menuSetup()
+        //menuSetup()
 
     }
+
 
     private fun updateButtonBar() {
         when (viewModel.missionsTabState.value) {
@@ -231,7 +280,7 @@ class MissionsFragment : Fragment() {
 
     }
 
-    private fun menuSetup() {
+    /*private fun menuSetup() {
         (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
 
 
@@ -276,7 +325,7 @@ class MissionsFragment : Fragment() {
             }
             else -> true
         }
-    }
+    }*/
 
     private fun networkObserveSetup(context: Context) {
         connectivityManager =

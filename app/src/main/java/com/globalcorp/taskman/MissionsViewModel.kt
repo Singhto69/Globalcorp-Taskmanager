@@ -1,7 +1,9 @@
 package com.globalcorp.taskman
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.icu.text.DateFormat.getDateInstance
+import android.media.MediaPlayer
 import android.util.Log
 import androidx.lifecycle.*
 import com.globalcorp.taskman.database.MissionsDao
@@ -11,30 +13,75 @@ import kotlinx.coroutines.*
 
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.firestore.ktx.memoryCacheSettings
 import com.google.firebase.firestore.ktx.persistentCacheSettings
 import java.util.*
+import kotlin.random.Random
 
 class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
     private val _status = MutableLiveData<String>()
     val status: LiveData<String> = _status
 
-    private val _allMissions = MutableLiveData<List<Mission>>()
-    val allMissions: LiveData<List<Mission>> = _allMissions
-
     private val dataBase: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
+    private val _allMissions = MutableLiveData<List<Mission>>()
+    val allMissions: LiveData<List<Mission>> = _allMissions
+
+    private val _latestMission = MutableLiveData<Mission?>()
+    val latestMission: LiveData<Mission?> = _latestMission
+
+    private var previousMissions: List<Mission>? = null
+    private lateinit var registration: ListenerRegistration
+    private var firstInit = true
+
     private val _missionsTabState: MutableLiveData<MissionsTabState> = MutableLiveData()
     val missionsTabState: LiveData<MissionsTabState> = _missionsTabState
-
-    //var missionsTabState: MissionsTabState = MissionsTabState.AVAILABLE
 
 
     init {
         _missionsTabState.value = MissionsTabState.AVAILABLE
         refresh()
+        startListeningForMissions()
+    }
+
+    private fun startListeningForMissions() {
+        val newMissionsRegistrationQuery = auth.currentUser?.let {
+            dataBase.collection("missions").whereArrayContains("users", auth.currentUser!!.uid)
+                .whereEqualTo("status", 0)
+        }
+
+        registration = newMissionsRegistrationQuery!!.addSnapshotListener { snapshot, error ->
+            if (error != null) {
+                Log.w(TAG, "Listen failed.", error)
+                return@addSnapshotListener
+            }
+
+            val currentMissions = snapshot?.documents?.map { it.toObject(Mission::class.java)!! }
+
+            if (firstInit) {
+                previousMissions = currentMissions
+                firstInit = false
+                return@addSnapshotListener
+            }
+
+            val previousSize = previousMissions?.size ?: 0
+            val currentSize = currentMissions?.size ?: 0
+
+            if (currentSize != previousSize) {
+                if (currentSize > previousSize) {
+                    val newMission = currentMissions?.last()
+                    _latestMission.value = newMission
+                    databaseSync()
+
+                } else {
+                    _latestMission.value = null
+                }
+            }
+            previousMissions = currentMissions
+        }
     }
 
     fun refresh() {
@@ -105,8 +152,30 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
         }.addOnFailureListener { exception ->
             Log.d(TAG, "Error getting documents: ", exception)
         }
+    }
 
-
+    fun meow(context: Context) {
+        viewModelScope.launch {
+            val rand: Int = Random.nextInt(0, 9)
+            var catPath: Int = 0
+            when (rand) {
+                0 -> catPath = R.raw.cat_meow_0
+                1 -> catPath = R.raw.cat_meow_1
+                2 -> catPath = R.raw.cat_meow_2
+                3 -> catPath = R.raw.cat_meow_3
+                4 -> catPath = R.raw.cat_meow_4
+                5 -> catPath = R.raw.cat_meow_5
+                6 -> catPath = R.raw.cat_meow_6
+                7 -> catPath = R.raw.cat_meow_7
+                8 -> catPath = R.raw.cat_meow_8
+                9 -> catPath = R.raw.cat_meow_9
+            }
+            var mediaPlayer: MediaPlayer? = MediaPlayer.create(context, catPath)
+            mediaPlayer?.start()
+            delay(5000)
+            mediaPlayer?.release()
+            mediaPlayer = null
+        }
     }
 
 
@@ -125,6 +194,10 @@ class MissionsViewModel(private val missionsDao: MissionsDao) : ViewModel() {
         refresh()
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        registration.remove()
+    }
 
 }
 
@@ -142,5 +215,3 @@ class MissionsViewModelFactory(private val missionsDao: MissionsDao) : ViewModel
 enum class MissionsTabState {
     AVAILABLE, ACCEPTED, FINISHED
 }
-
-//dataBase.collection("missions").whereEqualTo("status", 0).get()

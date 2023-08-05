@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +30,9 @@ class KittensFragment : Fragment() {
 
         kittensAdapter = KittensAdapter(viewModel)
         binding.kittensRecyclerview.adapter = kittensAdapter
+
+        val activity = activity as AppCompatActivity
+        activity.supportActionBar?.title = "Cats"
 
         viewModel.images.observe(viewLifecycleOwner) {
             it?.let { kittensAdapter!!.submitList(it) }

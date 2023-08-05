@@ -30,26 +30,26 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
         // AppBarConfiguration is updated here
-        appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.adminFragment,
-            R.id.kittensFragment,
-            R.id.missionsFragment   // replace with your actual destination id
-            // Add more if you have more top-level destinations
-        ))
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.loginFragment,
+                R.id.startFragment
+                // Add top level destinations that should not be navigated to
+            )
+        )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
 
-
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        /*navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.loginFragment) {
                 val transparentDrawable = ContextCompat.getDrawable(this, R.drawable.transparent_drawable)
                 supportActionBar?.setHomeAsUpIndicator(transparentDrawable) // Hide back button
@@ -59,10 +59,21 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 supportActionBar?.setHomeAsUpIndicator(upArrow)
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)  // Show back button
             }
+        }*/
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id in appBarConfiguration.topLevelDestinations) {
+                // Hide the back button for top-level destinations
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            } else {
+                // Show the back button for other destinations
+                val upArrow = ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
+                upArrow?.colorFilter = PorterDuffColorFilter(ContextCompat.getColor(this, android.R.color.white), PorterDuff.Mode.SRC_ATOP)
+                supportActionBar?.setHomeAsUpIndicator(upArrow)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            }
         }
 
     }
-
 
 
     override fun onSupportNavigateUp(): Boolean {
@@ -75,7 +86,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         inflater.inflate(R.menu.main_menu, menu)
         return true
     }*/
-
 
 
 }
