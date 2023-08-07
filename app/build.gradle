@@ -9,6 +9,16 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        alpha {
+            storeFile file('D:\\Storage\\keys\\alpha\\terra.jks')
+            storePassword KEYSTORE_PASSWORD
+            keyAlias 'alphakey'
+            keyPassword KEY_PASSWORD
+        }
+    }
+
+
     namespace 'com.globalcorp.taskman'
     compileSdk 33
 
