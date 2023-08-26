@@ -6,6 +6,7 @@ import android.widget.ImageView
 import coil.ImageLoader
 import coil.memory.MemoryCache
 import coil.request.ImageRequest
+import kotlinx.coroutines.CoroutineScope
 
 
 class ImageLoader(context: Context) {

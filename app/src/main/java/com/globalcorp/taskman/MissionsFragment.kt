@@ -4,29 +4,22 @@ package com.globalcorp.taskman
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.coroutineScope
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.globalcorp.taskman.databinding.FragmentMissionsBinding
 import kotlinx.coroutines.launch
+import com.globalcorp.taskman.utils.meow
 
 
 class MissionsFragment : Fragment() {
@@ -55,7 +48,6 @@ class MissionsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentMissionsBinding.inflate(inflater, container, false)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
@@ -92,18 +84,20 @@ class MissionsFragment : Fragment() {
 
         binding.missionsUiButtonsBar.missionsButtonsBarOption1Button.setOnClickListener {
             viewModel.setStateAvailable()
+            meow(requireContext(), lifecycle.coroutineScope)
         }
 
         binding.missionsUiButtonsBar.missionsButtonsBarOption2Button.setOnClickListener {
             viewModel.setStateAccepted()
+            meow(requireContext(), lifecycle.coroutineScope)
         }
 
         binding.missionsUiButtonsBar.missionsButtonsBarOption3Button.setOnClickListener {
             viewModel.setStateFinished()
+            meow(requireContext(), lifecycle.coroutineScope)
         }
 
         viewModel.latestMission.observe(viewLifecycleOwner, Observer { mission ->
-            // Update your UI here with the new mission count
             //Toast.makeText(requireContext(), "Ilovepp", Toast.LENGTH_SHORT).show()
 
             if (mission != null) {
@@ -111,14 +105,15 @@ class MissionsFragment : Fragment() {
                     "Terraco has sent you a new mission!",
                     "A new mission titled ${mission.title} is now available "
                 )
-                viewModel.meow(requireContext())
+                meow(requireContext(), lifecycle.coroutineScope)
 
-            } else {
+            }
+            /*else {
                 sendNewMissionNotification(
                     "Terraco has revoked a mission",
                     "A mission was revoked from your available missions"
                 )
-            }
+            }*/
 
 
         })

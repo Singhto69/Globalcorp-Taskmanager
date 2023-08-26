@@ -18,14 +18,17 @@ class KittensViewModel() : ViewModel() {
     private val _images = MutableLiveData<List<CatObject>>()
     val images: LiveData<List<CatObject>> = _images
 
+    val isRefreshing = MutableLiveData<Boolean>(false)
+
     init {
         apiGetCats()
     }
 
     fun refresh() {
+        isRefreshing.value = true
         apiGetCats()
+        isRefreshing.value = false
     }
-
 
 
     fun meow(context: Context) {

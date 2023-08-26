@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.Navigation
 import com.globalcorp.taskman.databinding.FragmentSelectedMissionBinding
@@ -17,12 +19,17 @@ import com.globalcorp.taskman.models.Mission
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.globalcorp.taskman.utils.meow
 
 
 class SelectedMissionFragment : Fragment() {
     private var _binding: FragmentSelectedMissionBinding? = null
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -31,6 +38,8 @@ class SelectedMissionFragment : Fragment() {
         _binding = FragmentSelectedMissionBinding.inflate(inflater)
         val mission = SelectedMissionFragmentArgs.fromBundle(requireArguments()).mission
         binding.mission = mission
+        val activity = activity as AppCompatActivity
+        activity.supportActionBar?.title = mission.title
         uiButtonsSetup()
         //val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
         /*       val mission: Mission? = arguments?.let {
@@ -56,9 +65,14 @@ class SelectedMissionFragment : Fragment() {
 
                 }
                 .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+
+            meow(requireContext(), lifecycle.coroutineScope)
+            val navController = Navigation.findNavController(requireView())
+            navController.navigate(R.id.action_selectedMissionFragment_to_missionsFragment)
+
         }
 
-        binding.selectedMissionGmapsButton.setOnClickListener {
+        binding.selectedMissionGoogleMapsImageView.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse("geo:0,0?q=${mission.location}")
             /*if (intent.resolveActivity(thisContext.packageManager) != null) {
@@ -87,18 +101,15 @@ class SelectedMissionFragment : Fragment() {
         when (binding.mission!!.status) {
             0 -> {
                 binding.selectedMissionAcceptButton.visibility = View.VISIBLE
-                binding.selectedMissionGmapsButton.visibility = View.GONE
                 binding.selectedMissionTimeReportButton.visibility = View.GONE
             }
 
             1 -> {
                 binding.selectedMissionAcceptButton.visibility = View.GONE
-                binding.selectedMissionGmapsButton.visibility = View.VISIBLE
                 binding.selectedMissionTimeReportButton.visibility = View.VISIBLE
             }
             2 -> {
                 binding.selectedMissionAcceptButton.visibility = View.GONE
-                binding.selectedMissionGmapsButton.visibility = View.GONE
                 binding.selectedMissionTimeReportButton.visibility = View.GONE
 
             }

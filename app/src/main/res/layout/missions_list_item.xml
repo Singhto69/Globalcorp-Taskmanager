@@ -102,6 +102,7 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="2dp"
             android:text="@{mission.description}"
+            android:textColor="#020202"
             app:layout_constraintBottom_toBottomOf="@id/mission_list_item_location_textview"
             app:layout_constraintEnd_toStartOf="@id/mission_list_item_location_textview"
             app:layout_constraintStart_toStartOf="parent"

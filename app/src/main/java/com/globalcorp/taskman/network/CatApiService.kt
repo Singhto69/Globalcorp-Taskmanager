@@ -15,7 +15,7 @@ private const val BASE_URL2 =
     "https://api.thecatapi.com/v1/images/search?limit=3&breeds=Sphinx&api_key="
 
 private const val api_key = "9b686b6c-0496-4238-92c3-b787d3189983"
-private const val limit = "10"
+private const val limit = "15"
 private const val breed = "Sphinx"
 
 class CatApiService  {
@@ -46,7 +46,6 @@ class CatApiService  {
         for that web service method. In this case the endpoint is called photos
          */
         @GET("search?limit=$limit&breeds=$breed&api_key=$api_key")
-        //suspend fun getPhotos(): List<>
         suspend fun getCat(): List<CatObject>
     }
 

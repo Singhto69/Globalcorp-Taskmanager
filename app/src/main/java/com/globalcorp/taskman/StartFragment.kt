@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.coroutineScope
 
 import androidx.navigation.fragment.NavHostFragment
 import com.globalcorp.taskman.databinding.FragmentStartBinding
@@ -14,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.google.firebase.auth.FirebaseAuth
+import com.globalcorp.taskman.utils.meow
 
 
 class StartFragment : Fragment() {
@@ -31,16 +33,21 @@ class StartFragment : Fragment() {
         //var user = auth.currentUser
 
         binding.startToMissionsImageButton.setOnClickListener {
-            //Firebase.analytics.logEvent("missions_button_clicked", null)
+            meow(requireContext(), lifecycle.coroutineScope)
             findNavController().navigate(R.id.action_startFragment_to_missionsFragment)
+
         }
 
         binding.startToKittensImageButton.setOnClickListener {
+            meow(requireContext(), lifecycle.coroutineScope)
             findNavController().navigate(R.id.action_startFragment_to_kittensFragment)
+
         }
 
         binding.startToAdminImageButton.setOnClickListener {
+            meow(requireContext(), lifecycle.coroutineScope)
             findNavController().navigate(R.id.action_startFragment_to_adminFragment)
+
         }
 
         val activity = activity as AppCompatActivity

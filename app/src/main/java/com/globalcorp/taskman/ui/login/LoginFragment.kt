@@ -133,7 +133,6 @@ class LoginFragment : Fragment() {
 
         binding.loginGoogleLoginButton.setOnClickListener {
             signIn()
-
         }
     }
 

@@ -11,6 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.globalcorp.taskman.databinding.MissionsListItemBinding
 import android.graphics.Rect
 import android.view.View
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.findViewTreeLifecycleOwner
+import com.globalcorp.taskman.utils.meow
 
 class MissionAdapter :
     ListAdapter<com.globalcorp.taskman.models.Mission, MissionAdapter.MissionsViewHolder>(
@@ -68,6 +72,7 @@ class MissionAdapter :
         }*/
 
         holder.itemView.setOnClickListener {
+            holder.itemView.findViewTreeLifecycleOwner()?.lifecycle?.let { it1 -> meow(thisContext, it1.coroutineScope) }
             val action = MissionsFragmentDirections.actionMissionsFragmentToSelectedMissionFragment(mission)
             val navController = Navigation.findNavController(holder.itemView)
             navController.navigate(action)

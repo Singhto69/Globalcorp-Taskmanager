@@ -56,15 +56,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_password_input" />
 
-    <Button
+    <ImageView
         android:id="@+id/login_google_login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginTop="48dp"
         android:enabled="true"
-        android:text="Google signin placeholder button"
+        android:src="@drawable/btn_google_dark_pressed_xhdpi"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.675"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_login_button" />
 
@@ -101,6 +102,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
 
+
+    <TextView
+        android:id="@+id/login_signin_with_google_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/signin_with_google"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/login_google_login_button"
+        app:layout_constraintHorizontal_bias="0.771"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/login_google_login_button" />
+
     <ImageView
         android:id="@+id/login_logo_imageView"
         android:layout_width="69dp"
@@ -126,7 +143,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_logo_imageView" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
